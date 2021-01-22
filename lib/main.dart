@@ -2,10 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:intl/intl.dart';
+import 'package:link_download_video/screens/HomeScreen.dart';
+import 'package:link_download_video/screens/SplashScreen.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main() => runApp(MaterialApp(
-  home: MyApp(),
+  home: SplashScreen(),
   debugShowCheckedModeBanner: false,
 ));
 
@@ -17,9 +21,10 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  final imgUrl = "https://media.istockphoto.com/photos/pakistan-monument-islamabad-picture-id535695503?k=6&m=535695503&s=612x612&w=0&h=uP8aDK4xlfjk3kEiyr9wwUiuh80UwAiICweFpiBDosk=";
+  final imgUrl = "https://appvideopromo.000webhostapp.com/user_videos/5TRSdMiE1V.mp4";
   bool downloading = false;
   var progressString = "";
+  static final DateTime now = DateTime.now();
 
   @override
   void initState() {
@@ -30,11 +35,12 @@ class MyAppState extends State<MyApp> {
 
   Future<void> downloadFile() async {
     Dio dio = Dio();
-
+    var dir = await getApplicationDocumentsDirectory();
+    String savePath = "${dir.path}/tiktok/${now}.mp4";
     try {
-      var dir = await getApplicationDocumentsDirectory();
 
-      await dio.download(imgUrl, "${dir.path}/myimage.jpg",
+      print(savePath);
+      await dio.download(imgUrl, savePath,
           onReceiveProgress: (rec, total) {
             print("Rec: $rec , Total: $total");
 
@@ -43,9 +49,14 @@ class MyAppState extends State<MyApp> {
               progressString = ((rec / total) * 100).toStringAsFixed(0) + "%";
             });
           });
+
+
     } catch (e) {
       print(e);
     }
+
+    // final result = await ImageGallerySaver.saveFile(savePath);
+    // print(result);
 
     setState(() {
       downloading = false;
