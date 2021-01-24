@@ -92,7 +92,7 @@ class _TikTokState extends State<TikTok> {
             );
           }else{
             return Center(
-              child: CircularProgressIndicator(),
+              child: Text("No Data"),
             );
           }
         },
