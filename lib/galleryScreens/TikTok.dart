@@ -72,7 +72,7 @@ class _TikTokState extends State<TikTok> {
                   },
                   child: Card(
                     child: GridTile(
-                      footer: Text("${vids.data[index].uri}"),
+                      footer: Image.asset('assets/logo/app.png'),
                       child: Text("$index"),
                     ),
                   ),
