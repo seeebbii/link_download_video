@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:link_download_video/main.dart';
 import 'package:link_download_video/screens/GalleryScreen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -40,10 +41,17 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundColor: Colors.grey.shade200,
-                              child: Image.asset('assets/logo/tik-tok.png', height: 30,),
+                            InkWell(
+                              onTap:(){
+                                Navigator.of(context).push(MaterialPageRoute(builder: (_){
+                                  return MyApp();
+                                }));
+                              },
+                              child: CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.grey.shade200,
+                                child: Image.asset('assets/logo/tik-tok.png', height: 30,),
+                              ),
                             ),
                             SizedBox(
                               height: 10,

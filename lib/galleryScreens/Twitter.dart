@@ -1,23 +1,20 @@
 import 'dart:io';
 import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:link_download_video/directory/storage.dart';
 import 'package:link_download_video/screens/PlayVideo.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:video_player/video_player.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
-
-class TikTok extends StatefulWidget {
+class Twitter extends StatefulWidget {
   @override
-  _TikTokState createState() => _TikTokState();
+  _TwitterState createState() => _TwitterState();
 }
 
-class _TikTokState extends State<TikTok> {
+class _TwitterState extends State<Twitter> {
   List<FileSystemEntity> files;
   List<Uint8List> fileThumbnail;
 
   Future<List<FileSystemEntity>> getVids() async {
-    await StorageModel().getTikTokList().then((value) async {
+    await StorageModel().getTwitterList().then((value) async {
       if (value != null) {
         setState(() {
           files = value;
@@ -45,7 +42,7 @@ class _TikTokState extends State<TikTok> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tik Tok"),
+        title: Text("Twitter"),
       ),
       body: FutureBuilder(
         future: getVids(),

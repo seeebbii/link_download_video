@@ -1,6 +1,7 @@
 import 'dart:io';
 
 
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -15,11 +16,12 @@ class PlayVideo extends StatefulWidget {
 
 class _PlayVideoState extends State<PlayVideo> {
   VideoPlayerController _controller;
-
+  // ChewieController _chewieController;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    // _chewieController = ChewieController(videoPlayerController: _controller, looping: true, autoInitialize: true,);
     _controller = VideoPlayerController.file(widget.video)
       ..initialize().then((_) {
         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
@@ -30,14 +32,17 @@ class _PlayVideoState extends State<PlayVideo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-          child: _controller.value.initialized
-              ? AspectRatio(
-            aspectRatio: _controller.value.aspectRatio,
-            child: VideoPlayer(_controller),
-          )
-              : Container(),
-        ),
+      appBar: AppBar(),
+        body: Column(
+          children: [
+            _controller.value.initialized
+                ? AspectRatio(
+              aspectRatio: _controller.value.aspectRatio,
+              child: VideoPlayer(_controller,),
+            )
+                : Container(),
+          ],
+        ) ,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             setState(() {
