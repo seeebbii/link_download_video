@@ -7,30 +7,30 @@ import 'package:video_player/video_player.dart';
 class PlayVideo extends StatefulWidget {
   FileSystemEntity video;
 
-  PlayVideo({this.video});
+  PlayVideo({this.video,});
 
   @override
   _PlayVideoState createState() => _PlayVideoState();
 }
 
 class _PlayVideoState extends State<PlayVideo> {
-  VideoPlayerController _controller;
+
   ChewieController _chewieController;
+  VideoPlayerController controller;
+  Future<void> _initializeVideoPlayerFuture;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _controller = VideoPlayerController.file(widget.video)
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {});
-      });
+    controller = VideoPlayerController.file(widget.video);
     _chewieController = ChewieController(
-        videoPlayerController: _controller,
-        aspectRatio: 16 / 9,
+        videoPlayerController: controller,
+        aspectRatio: 9/16,
+        allowFullScreen: true,
         autoInitialize: true,
         looping: false,
+        showControls: true,
         errorBuilder: (context, errorMessage) {
           return Center(
             child: Text("$errorMessage"),
@@ -41,20 +41,15 @@ class _PlayVideoState extends State<PlayVideo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Video Player"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Chewie(controller: _chewieController),
-      ),
+      backgroundColor: Colors.black54,
+      body: Chewie(controller: _chewieController,),
     );
   }
 
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
+    controller.dispose();
     _chewieController.dispose();
   }
 }

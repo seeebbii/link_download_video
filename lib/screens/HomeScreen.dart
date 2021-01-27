@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:link_download_video/downloadingScreens/TikTokDownloader.dart';
 import 'package:link_download_video/main.dart';
 import 'package:link_download_video/screens/GalleryScreen.dart';
 
@@ -44,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                             InkWell(
                               onTap:(){
                                 Navigator.of(context).push(MaterialPageRoute(builder: (_){
-                                  return MyApp();
+                                  return TikTokDownloader();
                                 }));
                               },
                               child: CircleAvatar(

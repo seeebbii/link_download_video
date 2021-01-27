@@ -6,6 +6,7 @@ import 'dart:typed_data';
 
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 
 class StorageModel{
 
@@ -435,7 +436,17 @@ class StorageModel{
     return files;
   }
 
+  Future<Uint8List> getThumbnail(String path) async{
+    return await VideoThumbnail.thumbnailData(
+      video: path,
+      timeMs: 1,
+      imageFormat: ImageFormat.PNG,
+      maxWidth: 100, // specify
+      maxHeight: 100,// the width of the thumbnail, let the height auto-scaled to keep the source aspect ratio
+      quality: 100,
 
+    );
+  }
 
   Future deleteFile(File file) async{
     try{

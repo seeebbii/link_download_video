@@ -1,32 +1,43 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
+import 'package:link_download_video/model/parseLink.dart';
 import 'package:link_download_video/screens/HomeScreen.dart';
 import 'package:link_download_video/screens/SplashScreen.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:http/http.dart' as http;
 
-void main() => runApp(MaterialApp(
-  home: SplashScreen(),
-  debugShowCheckedModeBanner: false,
-));
-
-class MyApp extends StatefulWidget {
+class TikTokDownloader extends StatefulWidget {
   @override
-  MyAppState createState() {
-    return new MyAppState();
-  }
+  _TikTokDownloaderState createState() => _TikTokDownloaderState();
 }
 
-class MyAppState extends State<MyApp> {
-  final url = "https://appvideopromo.000webhostapp.com/user_videos/RZ7DisPcBW.mp4";
+class _TikTokDownloaderState extends State<TikTokDownloader> {
   final Dio dio = Dio();
-  bool loading = false;
-  double progress = 0;
+  final fieldController = TextEditingController();
+  String finalLink;
+
+  void getResponse() async{
+    if(fieldController.text.isEmpty){
+      print("Empty");
+    }else{
+      // var url ="https://appvideopromo.000webhostapp.com/getTikTokVideo.php?url=" + fieldController.text.toString();
+      var url = fieldController.text.toString();
+
+      // Await the http get response, then decode the json-formatted response.
+      var response = await http.get("https://appvideopromo.000webhostapp.com/exemple.php?url="+url);
+      ParseLink object = ParseLink(json.decode(response.body));
+      finalLink =  object.downloadUrl;
+      print(finalLink);
+      downloadFile("$finalLink");
+    }
+  }
 
   Future<bool> saveVideo(String url, String fileName) async {
     Directory directory;
@@ -55,7 +66,7 @@ class MyAppState extends State<MyApp> {
         await dio.download(url, saveFile.path,
             onReceiveProgress: (value1, value2) {
               setState(() {
-                progress = value1 / value2;
+                var progress = value1 / value2;
                 print("$progress: Total: $value2");
               });
             });
@@ -84,11 +95,8 @@ class MyAppState extends State<MyApp> {
     return false;
   }
 
-  downloadFile() async {
-    setState(() {
-      loading = true;
-      progress = 0;
-    });
+  downloadFile(String url) async {
+
     bool downloaded = await saveVideo(
         url,
         "${DateTime.now()}.mp4");
@@ -97,36 +105,33 @@ class MyAppState extends State<MyApp> {
     } else {
       print("Problem Downloading File");
     }
-    setState(() {
-      loading = false;
-    });
+
   }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: loading
-            ? Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: LinearProgressIndicator(
-            minHeight: 10,
-            value: progress,
+      appBar: AppBar(),
+      body: Column(
+        children: [
+          TextField(
+            controller: fieldController,
+            decoration: InputDecoration(hintText: "Enter Link for TikTok"),
           ),
-        )
-            : FlatButton.icon(
-            icon: Icon(
-              Icons.download_rounded,
-              color: Colors.white,
-            ),
-            color: Colors.blue,
-            onPressed: downloadFile,
-            padding: const EdgeInsets.all(10),
-            label: Text(
-              "Download Video",
-              style: TextStyle(color: Colors.white, fontSize: 25),
-            )),
+          TextButton(child: Text(
+            "Download"
+          ), onPressed: getResponse),
+
+        ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    fieldController.dispose();
+    super.dispose();
   }
 }
