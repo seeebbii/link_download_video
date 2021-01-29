@@ -13,12 +13,12 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:http/http.dart' as http;
 
-class TikTokDownloader extends StatefulWidget {
+class LikeeDownloader extends StatefulWidget {
   @override
-  _TikTokDownloaderState createState() => _TikTokDownloaderState();
+  _LikeeDownloaderState createState() => _LikeeDownloaderState();
 }
 
-class _TikTokDownloaderState extends State<TikTokDownloader> {
+class _LikeeDownloaderState extends State<LikeeDownloader> {
   final Dio dio = Dio();
   final fieldController = TextEditingController();
   String finalLink;
@@ -31,23 +31,25 @@ class _TikTokDownloaderState extends State<TikTokDownloader> {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
       var url = fieldController.text.toString();
-      if (url.startsWith("https://www.tiktok.com/") ||
-          url.startsWith("https://vm.tiktok.com/")) {
+
+      if (url.startsWith("https://likee.video/")) {
         // SHOW DOWNLOAD PROGRESS
         showDialog(
           context: context,
           barrierDismissible: false,
           builder: (BuildContext context) {
-            return WillPopScope(onWillPop: () async => false,child: downloading);
+            return WillPopScope(
+                onWillPop: () async => false, child: downloading);
           },
         );
         // Await the http get response, then decode the json-formatted response.
         var response = await http.get(
-            "https://appvideopromo.000webhostapp.com/exemple.php?url=" + url);
-        ParseLink object = ParseLink(json.decode(response.body));
-        finalLink = object.downloadUrl;
+            "https://appvideopromo.000webhostapp.com/index.php?likee-url=" +
+                url);
+        finalLink = json.decode(response.body);
+        String replaced = finalLink.replaceAll(r'\', r'');
         print(finalLink);
-        downloadFile("$finalLink");
+        downloadFile("$replaced");
       } else {
         // INVALID LINK
         final snackBar = SnackBar(content: Text('Invalid Link'));
@@ -56,7 +58,7 @@ class _TikTokDownloaderState extends State<TikTokDownloader> {
     }
   }
 
-  static var progress;
+  var progress;
 
   Future<bool> saveVideo(String url, String fileName) async {
     Directory directory;
@@ -64,7 +66,7 @@ class _TikTokDownloaderState extends State<TikTokDownloader> {
       if (Platform.isAndroid) {
         if (await _requestPermission(Permission.storage)) {
           directory = await getApplicationDocumentsDirectory();
-          String newPath = directory.path + "/tiktok/";
+          String newPath = directory.path + "/likee/";
           directory = Directory(newPath);
           // print(directory);
         } else {
@@ -78,6 +80,7 @@ class _TikTokDownloaderState extends State<TikTokDownloader> {
         }
       }
       File saveFile = File(directory.path + "/$fileName");
+
       if (!await directory.exists()) {
         await directory.create(recursive: true);
       }
@@ -85,8 +88,7 @@ class _TikTokDownloaderState extends State<TikTokDownloader> {
         await dio.download(url, saveFile.path,
             onReceiveProgress: (value1, value2) {
           setState(() {
-            int total = 10;
-            progress = value1.bitLength.toDouble();
+            progress = value1 / value2;
             print("$progress: Total: $value2");
           });
         });
@@ -115,10 +117,8 @@ class _TikTokDownloaderState extends State<TikTokDownloader> {
     return false;
   }
 
-  bool downloaded;
-
   downloadFile(String url) async {
-    downloaded = await saveVideo(url, "${DateTime.now()}.mp4");
+    bool downloaded = await saveVideo(url, "${DateTime.now()}.mp4");
     if (downloaded) {
       Navigator.of(context).pop();
       showDialog(
@@ -144,7 +144,8 @@ class _TikTokDownloaderState extends State<TikTokDownloader> {
 
   AlertDialog downloading = AlertDialog(
     title: Text("Download In Progress"),
-    content: Container(height: 150, child: Center(child: CircularProgressIndicator())),
+    content: Container(
+        height: 150, child: Center(child: CircularProgressIndicator())),
   );
   AlertDialog success = AlertDialog(
       title: Text("Download Successful"),
@@ -162,7 +163,7 @@ class _TikTokDownloaderState extends State<TikTokDownloader> {
         children: [
           TextField(
             controller: fieldController,
-            decoration: InputDecoration(hintText: "Enter Link for TikTok"),
+            decoration: InputDecoration(hintText: "Enter Link for Likee"),
           ),
           TextButton(child: Text("Download"), onPressed: getResponse),
         ],

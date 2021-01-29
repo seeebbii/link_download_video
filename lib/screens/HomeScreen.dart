@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:link_download_video/downloadingScreens/LikeeDownloader.dart';
 import 'package:link_download_video/downloadingScreens/TikTokDownloader.dart';
 import 'package:link_download_video/main.dart';
 import 'package:link_download_video/screens/GalleryScreen.dart';
@@ -64,10 +65,17 @@ class HomeScreen extends StatelessWidget {
                         ),
                         Column(
                           children: [
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundColor: Colors.grey.shade200,
-                              child: Image.asset('assets/logo/Likee.png', height: 30,),
+                            InkWell(
+                              onTap: (){
+                                Navigator.of(context).push(MaterialPageRoute(builder: (_){
+                                  return LikeeDownloader();
+                                }));
+                              },
+                              child: CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.grey.shade200,
+                                child: Image.asset('assets/logo/Likee.png', height: 30,),
+                              ),
                             ),
                             SizedBox(
                               height: 10,

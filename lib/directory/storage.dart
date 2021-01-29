@@ -140,7 +140,7 @@ class StorageModel{
       } else {
         if (!file.path.contains("/storage/emulated/0/Android")) {
           print(file.path);
-          files.addAll(await getTikTokList());
+          files.addAll(await getLikeeList());
         }
       }
     }
