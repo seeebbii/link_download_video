@@ -31,6 +31,10 @@ import 'package:permission_handler/permission_handler.dart';
 import 'downloadingScreens/chingariDownloader.dart';
 
 void main() => runApp(MaterialApp(
+      theme: ThemeData(
+        accentColor: Color.fromRGBO(255, 119, 129, 1.0),
+        accentColorBrightness: Brightness.light,
+      ),
       routes: {
         "/chingariDownload": (context) => chingariDownloader(),
         "/facebookDownload": (context) => facebookDownloader(),
