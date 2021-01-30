@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:link_download_video/directory/storage.dart';
 import 'package:link_download_video/screens/PlayVideo.dart';
 import 'package:thumbnails/thumbnails.dart';
 class VideoGrid extends StatefulWidget {
@@ -13,6 +14,8 @@ class VideoGrid extends StatefulWidget {
 }
 
 class _VideoGridState extends State<VideoGrid> {
+
+
 
   _getImage(videoPathUrl) async {
     //await Future.delayed(Duration(milliseconds: 500));
@@ -27,6 +30,15 @@ class _VideoGridState extends State<VideoGrid> {
   Widget build(BuildContext context) {
     var videoList = widget.directory.listSync().map((item) => item.path).where((item) => item.endsWith(".mp4")).toList(growable: false);
 
+    void deleteFile(String path) async {
+      final file = File(path);
+      await StorageModel().deleteFile(file).then((value) {
+        setState(() {
+          videoList = videoList;
+        });
+      });
+    }
+
     if(videoList!=null){
       if(videoList.length>0){
         return GridView.builder(
@@ -34,6 +46,9 @@ class _VideoGridState extends State<VideoGrid> {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2, childAspectRatio: 8.0/8.0),
           itemBuilder: (context, index) {
             return InkWell(
+              onLongPress:(){
+                deleteFile(videoList[index]);
+              },
               onTap: ()=> Navigator.push(context, new MaterialPageRoute(
                   builder: (context)=>  PlayVideo(video: videoList[index],)
               ),),

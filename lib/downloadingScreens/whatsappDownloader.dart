@@ -256,7 +256,7 @@ class _PlayVideoState extends State<PlayVideo> {
         ),
       ),
       body: Container(
-        child: StatusVideo(
+        child: VideoController(
           videoPlayerController: VideoPlayerController.file(File(widget.video)),
           looping: false,
           videoSrc: widget.video,
