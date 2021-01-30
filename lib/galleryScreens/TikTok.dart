@@ -4,31 +4,18 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:link_download_video/directory/storage.dart';
 import 'package:link_download_video/screens/PlayVideo.dart';
+import 'package:link_download_video/widgets/VideoGrid.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:thumbnails/thumbnails.dart';
 import 'package:video_player/video_player.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
-
+final Directory _videoDir = new Directory('/data/user/0/com.codeminers.link_download_video/app_flutter/tiktok/');
 class TikTok extends StatefulWidget {
   @override
   _TikTokState createState() => _TikTokState();
 }
 
 class _TikTokState extends State<TikTok> {
-  List<FileSystemEntity> files;
-  List<Uint8List> fileThumbnail;
-
-  Future<List<FileSystemEntity>> getVids() async {
-    await StorageModel().getTikTokList().then((value) async {
-      if (value != null) {
-        setState(() {
-          files = value;
-        });
-      } else {
-        print("No Value");
-      }
-    });
-    return files;
-  }
 
   void deleteFile(String path) async {
     final file = File(path);
@@ -44,59 +31,31 @@ class _TikTokState extends State<TikTok> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Tik Tok"),
-        backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
-      ),
-      body: FutureBuilder(
-        future: getVids(),
-        builder:
-            (BuildContext context, AsyncSnapshot<List<FileSystemEntity>> vids) {
-          if (vids.data != null) {
-            return GridView.builder(
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-              padding: const EdgeInsets.all(15),
-              itemCount: vids.hasData ? vids.data.length : 0,
-              itemBuilder: (_, index) {
-                return InkWell(
-                  onLongPress: () {
-                    deleteFile(vids.data[index].path);
-                  },
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                      return PlayVideo(
-                        video: vids.data[index],
-                      );
-                    }));
-                  },
-                  child: GridTile(
-                    header: Text("$index"),
-                    child: Image.network(
-                        'https://www.phoca.cz/images/projects/phoca-gallery-r.png'),
-                    // child: FutureBuilder(
-                    //   future: StorageModel().getThumbnail(vids.data[index].path),
-                    //   builder: (_, AsyncSnapshot<Uint8List> data){
-                    //     if(data.data != null){
-                    //       return Image.memory(data.data);
-                    //     }else{
-                    //       return Center(child: CircularProgressIndicator());
-                    //     }
-                    //   },
-                    // ),
-                  ),
-                );
-              },
-            );
-          } else {
-            return Center(
-              child: Text("No Data Yet"),
-            );
-          }
-        },
-      ),
-    );
+    if(!Directory("${_videoDir.path}").existsSync()) {
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
+          title: Text("TikTok"),
+        ),
+        body: Container(
+          padding: EdgeInsets.only(bottom: 60.0),
+          child: Center(
+            child: Text("Install TikTok.", style: TextStyle(
+                fontSize: 18.0
+            ),),
+          ),
+        ),
+      );
+    }
+    else{
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
+          title: Text("TikTok"),
+        ),
+        body: VideoGrid(directory: _videoDir),
+      );
+    }
   }
 
   @override
@@ -105,3 +64,4 @@ class _TikTokState extends State<TikTok> {
     super.dispose();
   }
 }
+

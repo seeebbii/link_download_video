@@ -13,6 +13,7 @@ class StorageModel{
   Future<String> get tiktokPath async{
     Directory directory = await getApplicationDocumentsDirectory();
     String newPath = directory.path+"/tiktok/";
+    print(newPath);
     return newPath;
   }
 
