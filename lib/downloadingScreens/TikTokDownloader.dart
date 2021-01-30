@@ -159,7 +159,10 @@ class _TikTokDownloaderState extends State<TikTokDownloader> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("TikTok Downloader"),
+        backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -168,13 +171,42 @@ class _TikTokDownloaderState extends State<TikTokDownloader> {
               controller: fieldController,
               decoration: InputDecoration(
                 labelText: "Enter Link for TikTok",
-                border: OutlineInputBorder(),
+                labelStyle: TextStyle(
+                  color: Color.fromRGBO(171, 63, 65, 1.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color.fromRGBO(171, 63, 65, 1.0),
+                    width: 1.0,
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color.fromRGBO(171, 63, 65, 1.0),
+                    width: 1.0,
+                  ),
+                ),
               ),
             ),
             SizedBox(
               height: 15.0,
             ),
-            ElevatedButton(child: Text("Download"), onPressed: getResponse),
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                    if (states.contains(MaterialState.pressed))
+                      return Color.fromRGBO(171, 63, 65, 1.0);
+                    return Color.fromRGBO(
+                        255, 119, 129, 1.0); // Use the component's default.
+                  },
+                ),
+              ),
+              child: Text(
+                "Download",
+              ),
+              onPressed: getResponse,
+            ),
             SizedBox(
               height: 30.0,
             ),

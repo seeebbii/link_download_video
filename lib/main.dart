@@ -21,6 +21,7 @@ import 'package:link_download_video/downloadingScreens/trillerDownloader.dart';
 import 'package:link_download_video/downloadingScreens/twitterDownloader.dart';
 import 'package:link_download_video/downloadingScreens/vimeoDownloader.dart';
 import 'package:link_download_video/downloadingScreens/whatsappDownloader.dart';
+import 'package:link_download_video/galleryScreens/aboutus.dart';
 import 'package:link_download_video/screens/HomeScreen.dart';
 import 'package:link_download_video/screens/SplashScreen.dart';
 import 'package:path/path.dart';
@@ -28,21 +29,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'downloadingScreens/chingariDownloader.dart';
-import 'galleryScreens/Facebook.dart';
-import 'galleryScreens/Funimate.dart';
-import 'galleryScreens/Instagram.dart';
-import 'galleryScreens/Josh.dart';
-import 'galleryScreens/Moj.dart';
-import 'galleryScreens/Pinterest.dart';
-import 'galleryScreens/Rizzle.dart';
-import 'galleryScreens/Roposo.dart';
-import 'galleryScreens/SnackVideo.dart';
-import 'galleryScreens/TakaTak.dart';
-import 'galleryScreens/Trell.dart';
-import 'galleryScreens/Triller.dart';
-import 'galleryScreens/Twitter.dart';
-import 'galleryScreens/Vimeo.dart';
-import 'galleryScreens/Whatsapp.dart';
 
 void main() => runApp(MaterialApp(
       routes: {
@@ -51,7 +37,7 @@ void main() => runApp(MaterialApp(
         "/funimateDownload": (context) => funimateDownloader(),
         "/instagramDownload": (context) => instagramDownloader(),
         "/joshDownload": (context) => joshDownloader(),
-        "/MojDownload": (context) => mojDownloader(),
+        "/mojDownload": (context) => mojDownloader(),
         "/pinterestDownload": (context) => pinterestDownloader(),
         "/rizzleDownload": (context) => rizzleDownloader(),
         "/roposoDownload": (context) => roposoDownloader(),
@@ -63,6 +49,7 @@ void main() => runApp(MaterialApp(
         "/twitterDownload": (context) => twitterDownloader(),
         "/vimeoDownload": (context) => vimeoDownloader(),
         "/whatsappDownload": (context) => whatsappDownloader(),
+        "/aboutus": (context) => aboutus(),
       },
       home: SplashScreen(),
       debugShowCheckedModeBanner: false,

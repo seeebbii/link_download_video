@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:link_download_video/directory/storage.dart';
 import 'package:link_download_video/screens/PlayVideo.dart';
+
 class Vimeo extends StatefulWidget {
   @override
   _VimeoState createState() => _VimeoState();
@@ -43,6 +44,7 @@ class _VimeoState extends State<Vimeo> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Vimeo"),
+        backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
       ),
       body: FutureBuilder(
         future: getVids(),

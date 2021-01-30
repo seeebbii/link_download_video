@@ -30,8 +30,6 @@ class _TikTokState extends State<TikTok> {
     return files;
   }
 
-
-
   void deleteFile(String path) async {
     final file = File(path);
     await StorageModel().deleteFile(file).then((value) => print(value));
@@ -49,6 +47,7 @@ class _TikTokState extends State<TikTok> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Tik Tok"),
+        backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
       ),
       body: FutureBuilder(
         future: getVids(),
@@ -56,34 +55,37 @@ class _TikTokState extends State<TikTok> {
             (BuildContext context, AsyncSnapshot<List<FileSystemEntity>> vids) {
           if (vids.data != null) {
             return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount:  2),
+              gridDelegate:
+                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               padding: const EdgeInsets.all(15),
               itemCount: vids.hasData ? vids.data.length : 0,
               itemBuilder: (_, index) {
                 return InkWell(
-                    onLongPress: () {
-                      deleteFile(vids.data[index].path);
-                    },
-                  onTap: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_){
-                        return PlayVideo(video: vids.data[index],);
-                      }));
+                  onLongPress: () {
+                    deleteFile(vids.data[index].path);
                   },
-                    child: GridTile(
-                      header: Text("$index"),
-                      child: Image.network('https://www.phoca.cz/images/projects/phoca-gallery-r.png'),
-                      // child: FutureBuilder(
-                      //   future: StorageModel().getThumbnail(vids.data[index].path),
-                      //   builder: (_, AsyncSnapshot<Uint8List> data){
-                      //     if(data.data != null){
-                      //       return Image.memory(data.data);
-                      //     }else{
-                      //       return Center(child: CircularProgressIndicator());
-                      //     }
-                      //   },
-                      // ),
-                    ),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+                      return PlayVideo(
+                        video: vids.data[index],
+                      );
+                    }));
+                  },
+                  child: GridTile(
+                    header: Text("$index"),
+                    child: Image.network(
+                        'https://www.phoca.cz/images/projects/phoca-gallery-r.png'),
+                    // child: FutureBuilder(
+                    //   future: StorageModel().getThumbnail(vids.data[index].path),
+                    //   builder: (_, AsyncSnapshot<Uint8List> data){
+                    //     if(data.data != null){
+                    //       return Image.memory(data.data);
+                    //     }else{
+                    //       return Center(child: CircularProgressIndicator());
+                    //     }
+                    //   },
+                    // ),
+                  ),
                 );
               },
             );
@@ -96,6 +98,7 @@ class _TikTokState extends State<TikTok> {
       ),
     );
   }
+
   @override
   void dispose() {
     // TODO: implement dispose

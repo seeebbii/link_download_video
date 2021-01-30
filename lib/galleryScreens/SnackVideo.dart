@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:link_download_video/directory/storage.dart';
 import 'package:link_download_video/screens/PlayVideo.dart';
+
 class SnackVideo extends StatefulWidget {
   @override
   _SnackVideoState createState() => _SnackVideoState();
@@ -43,6 +44,7 @@ class _SnackVideoState extends State<SnackVideo> {
     return Scaffold(
       appBar: AppBar(
         title: Text("SnackVideo"),
+        backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
       ),
       body: FutureBuilder(
         future: getVids(),

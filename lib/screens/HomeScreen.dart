@@ -9,6 +9,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
         actions: [
           IconButton(
             icon: Icon(
@@ -65,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             Text(
                               "TikTok",
-                              style: TextStyle(fontSize: 15),
+                              style: TextStyle(fontSize: 13),
                             )
                           ],
                         ),
@@ -92,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             Text(
                               "Likee",
-                              style: TextStyle(fontSize: 15),
+                              style: TextStyle(fontSize: 13),
                             )
                           ],
                         ),
@@ -101,13 +102,13 @@ class HomeScreen extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 Navigator.of(context)
-                                    .pushNamed("/sharechatDownload");
+                                    .pushNamed("/facebookDownload");
                               },
                               child: CircleAvatar(
                                 radius: 30,
                                 backgroundColor: Colors.grey.shade200,
                                 child: Image.asset(
-                                  'assets/logo/sharechat.png',
+                                  'assets/logo/facebook.png',
                                   height: 30,
                                 ),
                               ),
@@ -116,167 +117,10 @@ class HomeScreen extends StatelessWidget {
                               height: 10,
                             ),
                             Text(
-                              "ShareChat",
-                              style: TextStyle(fontSize: 15),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context)
-                                    .pushNamed("/chingariDownload");
-                              },
-                              child: CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Colors.grey.shade200,
-                                child: Image.asset(
-                                  'assets/logo/Chingari.png',
-                                  height: 30,
-                                ),
+                              "Facebook",
+                              style: TextStyle(
+                                fontSize: 13,
                               ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "Chingari",
-                              style: TextStyle(fontSize: 15),
-                            )
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context)
-                                    .pushNamed("/funimateDownload");
-                              },
-                              child: CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Colors.grey.shade200,
-                                child: Image.asset(
-                                  'assets/logo/Funimate.png',
-                                  height: 30,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "Funimate",
-                              style: TextStyle(fontSize: 15),
-                            )
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context)
-                                    .pushNamed("/joshDownload");
-                              },
-                              child: CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Colors.grey.shade200,
-                                child: Image.asset(
-                                  'assets/logo/josh.png',
-                                  height: 30,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "Josh",
-                              style: TextStyle(fontSize: 15),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).pushNamed("/mojDownload");
-                              },
-                              child: CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Colors.grey.shade200,
-                                child: Image.asset(
-                                  'assets/logo/Moj.png',
-                                  height: 30,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "Moj",
-                              style: TextStyle(fontSize: 15),
-                            )
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context)
-                                    .pushNamed("/pinterestDownload");
-                              },
-                              child: CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Colors.grey.shade200,
-                                child: Image.asset(
-                                  'assets/logo/Pinterest.png',
-                                  height: 30,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "Pinterest",
-                              style: TextStyle(fontSize: 15),
-                            )
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context)
-                                    .pushNamed("/rizzleDownload");
-                              },
-                              child: CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Colors.grey.shade200,
-                                child: Image.asset(
-                                  'assets/logo/Rizzle.png',
-                                  height: 30,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "Rizzle",
-                              style: TextStyle(fontSize: 15),
                             )
                           ],
                         ),
@@ -306,7 +150,9 @@ class HomeScreen extends StatelessWidget {
                             ),
                             Text(
                               "Instagram",
-                              style: TextStyle(fontSize: 15),
+                              style: TextStyle(
+                                fontSize: 13,
+                              ),
                             )
                           ],
                         ),
@@ -315,13 +161,13 @@ class HomeScreen extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 Navigator.of(context)
-                                    .pushNamed("/facebookDownload");
+                                    .pushNamed("/vimeoDownload");
                               },
                               child: CircleAvatar(
                                 radius: 30,
                                 backgroundColor: Colors.grey.shade200,
                                 child: Image.asset(
-                                  'assets/logo/facebook.png',
+                                  'assets/logo/Vimeo.png',
                                   height: 30,
                                 ),
                               ),
@@ -330,8 +176,8 @@ class HomeScreen extends StatelessWidget {
                               height: 10,
                             ),
                             Text(
-                              "Facebook",
-                              style: TextStyle(fontSize: 15),
+                              "Vimeo",
+                              style: TextStyle(fontSize: 13),
                             )
                           ],
                         ),
@@ -356,7 +202,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             Text(
                               "WhatsApp",
-                              style: TextStyle(fontSize: 15),
+                              style: TextStyle(fontSize: 13),
                             )
                           ],
                         ),
@@ -386,7 +232,166 @@ class HomeScreen extends StatelessWidget {
                             ),
                             Text(
                               "Twitter",
-                              style: TextStyle(fontSize: 15),
+                              style: TextStyle(fontSize: 13),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context)
+                                    .pushNamed("/pinterestDownload");
+                              },
+                              child: CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.grey.shade200,
+                                child: Image.asset(
+                                  'assets/logo/Pinterest.png',
+                                  height: 30,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "Pinterest",
+                              style: TextStyle(fontSize: 13),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context)
+                                    .pushNamed("/rizzleDownload");
+                              },
+                              child: CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.grey.shade200,
+                                child: Image.asset(
+                                  'assets/logo/Rizzle.png',
+                                  height: 30,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "Rizzle",
+                              style: TextStyle(fontSize: 13),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context)
+                                    .pushNamed("/chingariDownload");
+                              },
+                              child: CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.grey.shade200,
+                                child: Image.asset(
+                                  'assets/logo/Chingari.png',
+                                  height: 30,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "Chingari",
+                              style: TextStyle(fontSize: 13),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context)
+                                    .pushNamed("/sharechatDownload");
+                              },
+                              child: CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.grey.shade200,
+                                child: Image.asset(
+                                  'assets/logo/sharechat.png',
+                                  height: 30,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "ShareChat",
+                              style: TextStyle(fontSize: 13),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context)
+                                    .pushNamed("/joshDownload");
+                              },
+                              child: CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.grey.shade200,
+                                child: Image.asset(
+                                  'assets/logo/josh.png',
+                                  height: 30,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "Josh",
+                              style: TextStyle(fontSize: 13),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).pushNamed("/mojDownload");
+                              },
+                              child: CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.grey.shade200,
+                                child: Image.asset(
+                                  'assets/logo/Moj.png',
+                                  height: 30,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "Moj",
+                              style: TextStyle(fontSize: 13),
                             )
                           ],
                         ),
@@ -411,7 +416,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             Text(
                               "Roposo",
-                              style: TextStyle(fontSize: 15),
+                              style: TextStyle(fontSize: 13),
                             )
                           ],
                         ),
@@ -420,13 +425,13 @@ class HomeScreen extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 Navigator.of(context)
-                                    .pushNamed("/snackvideoDownload");
+                                    .pushNamed("/trellDownload");
                               },
                               child: CircleAvatar(
                                 radius: 30,
                                 backgroundColor: Colors.grey.shade200,
                                 child: Image.asset(
-                                  'assets/logo/snackVideo.png',
+                                  'assets/logo/Trell.png',
                                   height: 30,
                                 ),
                               ),
@@ -435,8 +440,8 @@ class HomeScreen extends StatelessWidget {
                               height: 10,
                             ),
                             Text(
-                              "SnackVideo",
-                              style: TextStyle(fontSize: 15),
+                              "Trell",
+                              style: TextStyle(fontSize: 13),
                             )
                           ],
                         ),
@@ -466,7 +471,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             Text(
                               "Taka Tak",
-                              style: TextStyle(fontSize: 15),
+                              style: TextStyle(fontSize: 13),
                             )
                           ],
                         ),
@@ -491,7 +496,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             Text(
                               "Triller",
-                              style: TextStyle(fontSize: 15),
+                              style: TextStyle(fontSize: 13),
                             )
                           ],
                         ),
@@ -500,13 +505,13 @@ class HomeScreen extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 Navigator.of(context)
-                                    .pushNamed("/vimeoDownload");
+                                    .pushNamed("/funimateDownload");
                               },
                               child: CircleAvatar(
                                 radius: 30,
                                 backgroundColor: Colors.grey.shade200,
                                 child: Image.asset(
-                                  'assets/logo/Vimeo.png',
+                                  'assets/logo/Funimate.png',
                                   height: 30,
                                 ),
                               ),
@@ -515,8 +520,8 @@ class HomeScreen extends StatelessWidget {
                               height: 10,
                             ),
                             Text(
-                              "Vimeo",
-                              style: TextStyle(fontSize: 15),
+                              "Funimate",
+                              style: TextStyle(fontSize: 13),
                             )
                           ],
                         ),
@@ -530,13 +535,13 @@ class HomeScreen extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 Navigator.of(context)
-                                    .pushNamed("/trellDownload");
+                                    .pushNamed("/snackvideoDownload");
                               },
                               child: CircleAvatar(
                                 radius: 30,
                                 backgroundColor: Colors.grey.shade200,
                                 child: Image.asset(
-                                  'assets/logo/Trell.png',
+                                  'assets/logo/snackVideo.png',
                                   height: 30,
                                 ),
                               ),
@@ -545,8 +550,8 @@ class HomeScreen extends StatelessWidget {
                               height: 10,
                             ),
                             Text(
-                              "Trell",
-                              style: TextStyle(fontSize: 15),
+                              "SnackVideo",
+                              style: TextStyle(fontSize: 13),
                             )
                           ],
                         ),
@@ -566,10 +571,10 @@ class HomeScreen extends StatelessWidget {
                 ),
                 shadowColor: Colors.black54,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Column(
                           children: [
@@ -582,7 +587,8 @@ class HomeScreen extends StatelessWidget {
                               },
                               child: CircleAvatar(
                                 radius: 30,
-                                backgroundColor: Colors.grey.shade200,
+                                backgroundColor:
+                                    Color.fromRGBO(255, 119, 129, 1.0),
                                 child: Image.asset(
                                   'assets/logo/gallery.png',
                                   height: 30,
@@ -594,6 +600,35 @@ class HomeScreen extends StatelessWidget {
                             ),
                             Text(
                               "Gallery",
+                              style: TextStyle(fontSize: 15),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).pushNamed("/aboutus");
+                              },
+                              child: CircleAvatar(
+                                radius: 30,
+                                backgroundColor:
+                                    Color.fromRGBO(255, 119, 129, 1.0),
+                                // child: Icon(
+                                //   Icons.people_outline,
+                                //   color: Color.fromRGBO(252, 222, 214, 1.0),
+                                // ),
+                                child: Image.asset(
+                                  'assets/logo/aboutus.png',
+                                  height: 30,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "About Us",
                               style: TextStyle(fontSize: 15),
                             )
                           ],

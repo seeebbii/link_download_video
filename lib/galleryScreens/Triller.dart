@@ -44,6 +44,7 @@ class _TrillerState extends State<Triller> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Triller"),
+        backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
       ),
       body: FutureBuilder(
         future: getVids(),

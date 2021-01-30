@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:link_download_video/directory/storage.dart';
 import 'package:link_download_video/screens/PlayVideo.dart';
+
 class Moj extends StatefulWidget {
   @override
   _MojState createState() => _MojState();
@@ -43,6 +44,7 @@ class _MojState extends State<Moj> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Moj"),
+        backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
       ),
       body: FutureBuilder(
         future: getVids(),

@@ -44,6 +44,7 @@ class _FunimateState extends State<Funimate> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Funimate"),
+        backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
       ),
       body: FutureBuilder(
         future: getVids(),
