@@ -17,11 +17,17 @@ Everything that could help you in using the application is mentioned in the Scre
 Some Screens Of the Application are provided Below.
 
 
+#Splash Screen 
 
-![Screenshot](Screen1.png) ![Screenshot](Screen3.png)
+![Screenshot](Screen6.png) 
 
-![Screenshot](Screen2.png) 
+
+# Screens 
+
+![Screenshot](Screen1.png) ![Screenshot](Screen3.png) ![Screenshot](Screen2.png) 
+
+
 
 # Seperate Gallery for Every Application
 
-![Screenshot](Screen4.png)
+![Screenshot](Screen4.png) ![Screenshot](Screen5.png) 
