@@ -38,7 +38,8 @@ class _TikTokDownloaderState extends State<TikTokDownloader> {
           context: context,
           barrierDismissible: false,
           builder: (BuildContext context) {
-            return WillPopScope(onWillPop: () async => false,child: downloading);
+            return WillPopScope(
+                onWillPop: () async => false, child: downloading);
           },
         );
         // Await the http get response, then decode the json-formatted response.
@@ -144,7 +145,8 @@ class _TikTokDownloaderState extends State<TikTokDownloader> {
 
   AlertDialog downloading = AlertDialog(
     title: Text("Download In Progress"),
-    content: Container(height: 150, child: Center(child: CircularProgressIndicator())),
+    content: Container(
+        height: 150, child: Center(child: CircularProgressIndicator())),
   );
   AlertDialog success = AlertDialog(
       title: Text("Download Successful"),
@@ -158,14 +160,62 @@ class _TikTokDownloaderState extends State<TikTokDownloader> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
-        children: [
-          TextField(
-            controller: fieldController,
-            decoration: InputDecoration(hintText: "Enter Link for TikTok"),
-          ),
-          TextButton(child: Text("Download"), onPressed: getResponse),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: fieldController,
+              decoration: InputDecoration(
+                labelText: "Enter Link for TikTok",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(
+              height: 15.0,
+            ),
+            ElevatedButton(child: Text("Download"), onPressed: getResponse),
+            SizedBox(
+              height: 30.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(14.0),
+              child: Column(
+                children: [
+                  Text(
+                    "Follow the Steps below to Download Video From TikTok!",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                  ),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  Text(
+                    "Step 1: Open TikTok and Press the Share button of the video you wish to Download.",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    "Step 2: Select the Copy URL Option from the Video Menu and Paste it Over here.",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    "Step 3: Then Click the Download button and wait until you see the Download Complete Box.",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

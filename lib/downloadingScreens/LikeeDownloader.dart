@@ -159,14 +159,62 @@ class _LikeeDownloaderState extends State<LikeeDownloader> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
-        children: [
-          TextField(
-            controller: fieldController,
-            decoration: InputDecoration(hintText: "Enter Link for Likee"),
-          ),
-          TextButton(child: Text("Download"), onPressed: getResponse),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: fieldController,
+              decoration: InputDecoration(
+                labelText: "Enter Link for Likee",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(
+              height: 15.0,
+            ),
+            ElevatedButton(child: Text("Download"), onPressed: getResponse),
+            SizedBox(
+              height: 30.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(14.0),
+              child: Column(
+                children: [
+                  Text(
+                    "Follow the Steps below to Download Video From Likee!",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                  ),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  Text(
+                    "Step 1: Open Likee and Press the Share button of the video you wish to Download.",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    "Step 2: Select the Copy URL Option from the Video Menu and Paste it Over here.",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    "Step 3: Then Click the Download button and wait until you see the Download Complete Box.",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

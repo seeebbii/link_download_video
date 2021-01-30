@@ -5,15 +5,68 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
+import 'package:link_download_video/downloadingScreens/facebookDownloader.dart';
+import 'package:link_download_video/downloadingScreens/funimateDownloader.dart';
+import 'package:link_download_video/downloadingScreens/instagramDownloader.dart';
+import 'package:link_download_video/downloadingScreens/joshDownloader.dart';
+import 'package:link_download_video/downloadingScreens/mojDownloader.dart';
+import 'package:link_download_video/downloadingScreens/pinterestDownloader.dart';
+import 'package:link_download_video/downloadingScreens/rizzleDownloader.dart';
+import 'package:link_download_video/downloadingScreens/roposoDownloader.dart';
+import 'package:link_download_video/downloadingScreens/sharechatDownloader.dart';
+import 'package:link_download_video/downloadingScreens/snackvideoDownloader.dart';
+import 'package:link_download_video/downloadingScreens/takatakDownloader.dart';
+import 'package:link_download_video/downloadingScreens/trellDownloader.dart';
+import 'package:link_download_video/downloadingScreens/trillerDownloader.dart';
+import 'package:link_download_video/downloadingScreens/twitterDownloader.dart';
+import 'package:link_download_video/downloadingScreens/vimeoDownloader.dart';
+import 'package:link_download_video/downloadingScreens/whatsappDownloader.dart';
 import 'package:link_download_video/screens/HomeScreen.dart';
 import 'package:link_download_video/screens/SplashScreen.dart';
+import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import 'downloadingScreens/chingariDownloader.dart';
+import 'galleryScreens/Facebook.dart';
+import 'galleryScreens/Funimate.dart';
+import 'galleryScreens/Instagram.dart';
+import 'galleryScreens/Josh.dart';
+import 'galleryScreens/Moj.dart';
+import 'galleryScreens/Pinterest.dart';
+import 'galleryScreens/Rizzle.dart';
+import 'galleryScreens/Roposo.dart';
+import 'galleryScreens/SnackVideo.dart';
+import 'galleryScreens/TakaTak.dart';
+import 'galleryScreens/Trell.dart';
+import 'galleryScreens/Triller.dart';
+import 'galleryScreens/Twitter.dart';
+import 'galleryScreens/Vimeo.dart';
+import 'galleryScreens/Whatsapp.dart';
+
 void main() => runApp(MaterialApp(
-  home: SplashScreen(),
-  debugShowCheckedModeBanner: false,
-));
+      routes: {
+        "/chingariDownload": (context) => chingariDownloader(),
+        "/facebookDownload": (context) => facebookDownloader(),
+        "/funimateDownload": (context) => funimateDownloader(),
+        "/instagramDownload": (context) => instagramDownloader(),
+        "/joshDownload": (context) => joshDownloader(),
+        "/MojDownload": (context) => mojDownloader(),
+        "/pinterestDownload": (context) => pinterestDownloader(),
+        "/rizzleDownload": (context) => rizzleDownloader(),
+        "/roposoDownload": (context) => roposoDownloader(),
+        "/sharechatDownload": (context) => sharechatDownloader(),
+        "/snackvideoDownload": (context) => snackvideoDownloader(),
+        "/takatakDownload": (context) => takatakDownloader(),
+        "/trellDownload": (context) => trellDownloader(),
+        "/trillerDownload": (context) => trillerDownloader(),
+        "/twitterDownload": (context) => twitterDownloader(),
+        "/vimeoDownload": (context) => vimeoDownloader(),
+        "/whatsappDownload": (context) => whatsappDownloader(),
+      },
+      home: SplashScreen(),
+      debugShowCheckedModeBanner: false,
+    ));
 
 class MyApp extends StatefulWidget {
   @override
@@ -23,7 +76,8 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  final url = "https://appvideopromo.000webhostapp.com/user_videos/RZ7DisPcBW.mp4";
+  final url =
+      "https://appvideopromo.000webhostapp.com/user_videos/RZ7DisPcBW.mp4";
   final Dio dio = Dio();
   bool loading = false;
   double progress = 0;
@@ -34,7 +88,7 @@ class MyAppState extends State<MyApp> {
       if (Platform.isAndroid) {
         if (await _requestPermission(Permission.storage)) {
           directory = await getApplicationDocumentsDirectory();
-          String newPath = directory.path+"/tiktok/";
+          String newPath = directory.path + "/tiktok/";
           directory = Directory(newPath);
           // print(directory);
         } else {
@@ -54,11 +108,11 @@ class MyAppState extends State<MyApp> {
       if (await directory.exists()) {
         await dio.download(url, saveFile.path,
             onReceiveProgress: (value1, value2) {
-              setState(() {
-                progress = value1 / value2;
-                print("$progress: Total: $value2");
-              });
-            });
+          setState(() {
+            progress = value1 / value2;
+            print("$progress: Total: $value2");
+          });
+        });
         if (Platform.isIOS) {
           await ImageGallerySaver.saveFile(saveFile.path,
               isReturnPathOfIOS: true);
@@ -89,9 +143,7 @@ class MyAppState extends State<MyApp> {
       loading = true;
       progress = 0;
     });
-    bool downloaded = await saveVideo(
-        url,
-        "${DateTime.now()}.mp4");
+    bool downloaded = await saveVideo(url, "${DateTime.now()}.mp4");
     if (downloaded) {
       print("File Downloaded");
     } else {
@@ -108,24 +160,24 @@ class MyAppState extends State<MyApp> {
       body: Center(
         child: loading
             ? Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: LinearProgressIndicator(
-            minHeight: 10,
-            value: progress,
-          ),
-        )
+                padding: const EdgeInsets.all(8.0),
+                child: LinearProgressIndicator(
+                  minHeight: 10,
+                  value: progress,
+                ),
+              )
             : FlatButton.icon(
-            icon: Icon(
-              Icons.download_rounded,
-              color: Colors.white,
-            ),
-            color: Colors.blue,
-            onPressed: downloadFile,
-            padding: const EdgeInsets.all(10),
-            label: Text(
-              "Download Video",
-              style: TextStyle(color: Colors.white, fontSize: 25),
-            )),
+                icon: Icon(
+                  Icons.download_rounded,
+                  color: Colors.white,
+                ),
+                color: Colors.blue,
+                onPressed: downloadFile,
+                padding: const EdgeInsets.all(10),
+                label: Text(
+                  "Download Video",
+                  style: TextStyle(color: Colors.white, fontSize: 25),
+                )),
       ),
     );
   }
