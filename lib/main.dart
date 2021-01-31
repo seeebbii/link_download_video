@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:intl/intl.dart';
 import 'package:link_download_video/downloadingScreens/facebookDownloader.dart';
 import 'package:link_download_video/downloadingScreens/funimateDownloader.dart';
 import 'package:link_download_video/downloadingScreens/instagramDownloader.dart';
@@ -22,12 +21,9 @@ import 'package:link_download_video/downloadingScreens/twitterDownloader.dart';
 import 'package:link_download_video/downloadingScreens/vimeoDownloader.dart';
 import 'package:link_download_video/downloadingScreens/whatsappDownloader.dart';
 import 'package:link_download_video/galleryScreens/aboutus.dart';
-import 'package:link_download_video/screens/HomeScreen.dart';
 import 'package:link_download_video/screens/SplashScreen.dart';
-import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import 'downloadingScreens/chingariDownloader.dart';
 
 void main() => runApp(MaterialApp(

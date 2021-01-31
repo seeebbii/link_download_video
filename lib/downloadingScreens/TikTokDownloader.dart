@@ -64,7 +64,8 @@ class _TikTokDownloaderState extends State<TikTokDownloader> {
     try {
       if (Platform.isAndroid) {
         if (await _requestPermission(Permission.storage)) {
-          directory = Directory("/data/user/0/com.codeminers.link_download_video/app_flutter/tiktok/");
+          directory = Directory(
+              "/data/user/0/com.codeminers.link_download_video/app_flutter/tiktok/");
           // print(directory);
         } else {
           return false;

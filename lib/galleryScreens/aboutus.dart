@@ -13,6 +13,14 @@ class _aboutusState extends State<aboutus> {
         title: Text("About Us"),
         backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
       ),
+      body: Column(
+        children: [
+          Image.asset(
+            'assets/logo/codeminers.png',
+            height: 200,
+          ),
+        ],
+      ),
     );
   }
 }
