@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "618459099762",
+    "project_id": "video-downloader-2bfa7",
+    "storage_bucket": "video-downloader-2bfa7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:618459099762:android:c163e6de803fa723b548eb",
+        "android_client_info": {
+          "package_name": "com.codeminers.link_download_video"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "618459099762-vlnlgr37pcrk2rv5phqci3bgb81obom9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codeminers.link_download_video",
+            "certificate_hash": "e43bb9337d27cc433eb306ea4dc8bcc86df38549"
+          }
+        },
+        {
+          "client_id": "618459099762-8rvqirj2jjmggooik3c65qmbief3u4ov.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0yQsAzUIzlQ6YMJFufc0ke222A0Fu-f4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "618459099762-8rvqirj2jjmggooik3c65qmbief3u4ov.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
