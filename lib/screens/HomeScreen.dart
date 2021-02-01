@@ -1,12 +1,51 @@
+import 'dart:async';
+
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:link_download_video/downloadingScreens/LikeeDownloader.dart';
 import 'package:link_download_video/downloadingScreens/TikTokDownloader.dart';
-import 'package:link_download_video/main.dart';
 import 'package:link_download_video/screens/GalleryScreen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  BannerAd _bannerAd;
+
+  BannerAd createBannerAdd() {
+    return BannerAd(
+        adUnitId: BannerAd.testAdUnitId,
+        size: AdSize.smartBanner,
+        listener: (MobileAdEvent event) {
+          print("Banner Event: $event");
+        });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseAdMob.instance.initialize(appId: 'ca-app-pub-3940256099942544~3347511713');
+    _bannerAd = createBannerAdd()..load();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _bannerAd?.dispose();
+  }
+
+
   @override
   Widget build(BuildContext context) {
+
+    Timer(Duration(seconds: 10), (){
+      _bannerAd?.show();
+    });
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
@@ -17,9 +56,13 @@ class HomeScreen extends StatelessWidget {
               color: Colors.white,
             ),
             onPressed: () {
+              _bannerAd?.dispose();
               Navigator.of(context).push(MaterialPageRoute(builder: (_) {
                 return GalleryScreen();
-              }));
+              })).then((value) {
+                _bannerAd = createBannerAdd()..load();
+                _bannerAd?.show();
+              });
             },
           )
         ],
@@ -580,10 +623,14 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             InkWell(
                               onTap: () {
+                                _bannerAd?.dispose();
                                 Navigator.of(context)
                                     .push(MaterialPageRoute(builder: (_) {
                                   return GalleryScreen();
-                                }));
+                                })).then((value) {
+                                  _bannerAd = createBannerAdd()..load();
+                                  _bannerAd?.show();
+                                });
                               },
                               child: CircleAvatar(
                                 radius: 30,
@@ -638,7 +685,8 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-            )
+            ),
+            SizedBox(height: 100,)
           ],
         ),
       ),

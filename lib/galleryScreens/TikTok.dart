@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:link_download_video/directory/storage.dart';
 import 'package:link_download_video/screens/PlayVideo.dart';
@@ -11,6 +12,12 @@ import 'package:video_player/video_player.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 final Directory _videoDir = new Directory('/data/user/0/com.codeminers.link_download_video/app_flutter/tiktok/');
 class TikTok extends StatefulWidget {
+
+  InterstitialAd interstitialAd;
+
+
+  TikTok({this.interstitialAd});
+
   @override
   _TikTokState createState() => _TikTokState();
 }
@@ -53,7 +60,7 @@ class _TikTokState extends State<TikTok> {
           backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
           title: Text("TikTok"),
         ),
-        body: VideoGrid(directory: _videoDir),
+        body: VideoGrid(directory: _videoDir, interstitialAd: widget.interstitialAd,),
       );
     }
   }

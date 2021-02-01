@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:link_download_video/galleryScreens/Chingari.dart';
 import 'package:link_download_video/galleryScreens/Facebook.dart';
 import 'package:link_download_video/galleryScreens/Funimate.dart';
@@ -25,6 +26,30 @@ class GalleryScreen extends StatefulWidget {
 }
 
 class _GalleryScreenState extends State<GalleryScreen> {
+
+  InterstitialAd _interstitialAd;
+
+  InterstitialAd createInterstitialAd(){
+    return InterstitialAd(adUnitId: InterstitialAd.testAdUnitId, listener: (MobileAdEvent event){
+      print("Interstitial event: $event");
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseAdMob.instance.initialize(appId: 'ca-app-pub-3940256099942544~3347511713');
+    _interstitialAd = createInterstitialAd()..load();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,8 +75,10 @@ class _GalleryScreenState extends State<GalleryScreen> {
                             onTap: () {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (_) {
-                                return TikTok();
-                              }));
+                                return TikTok(interstitialAd: _interstitialAd,);
+                              })).then((value){
+                                _interstitialAd = createInterstitialAd()..load();
+                              });
                             },
                             child: CircleAvatar(
                               radius: 30,
