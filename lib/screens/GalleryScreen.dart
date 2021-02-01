@@ -104,8 +104,10 @@ class _GalleryScreenState extends State<GalleryScreen> {
                             onTap: () {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (_) {
-                                return Likee();
-                              }));
+                                return Likee(interstitialAd: _interstitialAd,);
+                              })).then((value){
+                                _interstitialAd = createInterstitialAd()..load();
+                              });
                             },
                             child: CircleAvatar(
                               radius: 30,

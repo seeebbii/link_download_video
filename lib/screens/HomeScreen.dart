@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
 
-    Timer(Duration(seconds: 10), (){
+    Timer(Duration(seconds: 5), (){
       _bannerAd?.show();
     });
 
