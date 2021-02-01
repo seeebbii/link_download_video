@@ -32,7 +32,7 @@ class _LikeeDownloaderState extends State<LikeeDownloader> {
     } else {
       var url = fieldController.text.toString();
 
-      if (url.startsWith("https://likee.video/")) {
+      if (url.startsWith("https://likee.video/") || url.startsWith("https://mobile.likee.video/")) {
         // SHOW DOWNLOAD PROGRESS
         showDialog(
           context: context,
@@ -44,7 +44,7 @@ class _LikeeDownloaderState extends State<LikeeDownloader> {
         );
         // Await the http get response, then decode the json-formatted response.
         var response = await http.get(
-            "https://appvideopromo.000webhostapp.com/index.php?likee-url=" +
+            "https://appvideopromo.000webhostapp.com/likee.php?likee-url=" +
                 url);
         finalLink = json.decode(response.body);
         String replaced = finalLink.replaceAll(r'\', r'');

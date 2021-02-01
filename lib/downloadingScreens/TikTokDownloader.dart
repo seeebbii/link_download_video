@@ -44,7 +44,7 @@ class _TikTokDownloaderState extends State<TikTokDownloader> {
         );
         // Await the http get response, then decode the json-formatted response.
         var response = await http.get(
-            "https://appvideopromo.000webhostapp.com/exemple.php?url=" + url);
+            "https://appvideopromo.000webhostapp.com/tiktok.php?url=" + url);
         ParseLink object = ParseLink(json.decode(response.body));
         finalLink = object.downloadUrl;
         print(finalLink);
