@@ -8,9 +8,9 @@ import 'package:thumbnails/thumbnails.dart';
 
 class VideoGrid extends StatefulWidget {
   final Directory directory;
-  final InterstitialAd interstitialAd;
+  InterstitialAd interstitialAd;
 
-  const VideoGrid({Key key, this.directory, this.interstitialAd})
+  VideoGrid({Key key, this.directory, this.interstitialAd})
       : super(key: key);
 
   @override
@@ -18,6 +18,14 @@ class VideoGrid extends StatefulWidget {
 }
 
 class _VideoGridState extends State<VideoGrid> {
+
+  InterstitialAd createInterstitialAd(){
+    return InterstitialAd(adUnitId: InterstitialAd.testAdUnitId, listener: (MobileAdEvent event){
+      print("Interstitial event: $event");
+    });
+  }
+
+
   _getImage(videoPathUrl) async {
     //await Future.delayed(Duration(milliseconds: 500));
     String thumb = await Thumbnails.getThumbnail(
@@ -68,7 +76,9 @@ class _VideoGridState extends State<VideoGrid> {
                       builder: (context) => PlayVideo(
                             video: videoList[index],
                           )),
-                );
+                ).then((value) {
+                  widget.interstitialAd = createInterstitialAd()..load();
+                });
 
               },
               child: FutureBuilder(
