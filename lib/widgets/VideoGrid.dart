@@ -9,8 +9,10 @@ import 'package:thumbnails/thumbnails.dart';
 class VideoGrid extends StatefulWidget {
   final Directory directory;
   InterstitialAd interstitialAd;
+  double aspectRatio;
 
-  VideoGrid({Key key, this.directory, this.interstitialAd})
+
+  VideoGrid({Key key, this.directory, this.interstitialAd, this.aspectRatio})
       : super(key: key);
 
   @override
@@ -75,6 +77,7 @@ class _VideoGridState extends State<VideoGrid> {
                   new MaterialPageRoute(
                       builder: (context) => PlayVideo(
                             video: videoList[index],
+                        aspectRatio: widget.aspectRatio,
                           )),
                 ).then((value) {
                   widget.interstitialAd = createInterstitialAd()..load();
