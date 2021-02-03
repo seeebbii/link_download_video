@@ -167,8 +167,10 @@ class _GalleryScreenState extends State<GalleryScreen> {
                             onTap: () {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (_) {
-                                return Instagram();
-                              }));
+                                return Instagram(interstitialAd: _interstitialAd,);
+                              })).then((value) {
+                                _interstitialAd = createInterstitialAd()..load();
+                              });
                             },
                             child: CircleAvatar(
                               radius: 30,
@@ -194,8 +196,10 @@ class _GalleryScreenState extends State<GalleryScreen> {
                             onTap: () {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (_) {
-                                return Vimeo();
-                              }));
+                                return Vimeo(interstitialAd: _interstitialAd);
+                              })).then((value) {
+                                _interstitialAd = createInterstitialAd()..load();
+                              });
                             },
                             child: CircleAvatar(
                               radius: 30,
