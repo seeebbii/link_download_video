@@ -8,7 +8,8 @@ import 'package:video_player/video_player.dart';
 
 class PlayVideo extends StatefulWidget {
   final String video;
-  PlayVideo({this.video});
+  double aspectRatio;
+  PlayVideo({this.video, this.aspectRatio});
 
   @override
   _PlayVideoState createState() => _PlayVideoState();
@@ -130,6 +131,7 @@ class _PlayVideoState extends State<PlayVideo> {
       ),
       body: Container(
         child: VideoController(
+          aspectRatio: widget.aspectRatio,
           videoPlayerController: VideoPlayerController.file(File(widget.video)),
           looping: false,
           videoSrc: widget.video,

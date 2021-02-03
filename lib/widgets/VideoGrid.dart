@@ -5,12 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:link_download_video/directory/storage.dart';
 import 'package:link_download_video/screens/PlayVideo.dart';
 import 'package:thumbnails/thumbnails.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 
 class VideoGrid extends StatefulWidget {
   final Directory directory;
   InterstitialAd interstitialAd;
+  double aspectRatio;
 
-  VideoGrid({Key key, this.directory, this.interstitialAd})
+
+  VideoGrid({Key key, this.directory, this.interstitialAd, this.aspectRatio})
       : super(key: key);
 
   @override
@@ -18,6 +21,7 @@ class VideoGrid extends StatefulWidget {
 }
 
 class _VideoGridState extends State<VideoGrid> {
+
 
   InterstitialAd createInterstitialAd(){
     return InterstitialAd(adUnitId: InterstitialAd.testAdUnitId, listener: (MobileAdEvent event){
@@ -28,9 +32,9 @@ class _VideoGridState extends State<VideoGrid> {
 
   _getImage(videoPathUrl) async {
     //await Future.delayed(Duration(milliseconds: 500));
-    String thumb = await Thumbnails.getThumbnail(
-        videoFile: videoPathUrl,
-        imageType: ThumbFormat.PNG,
+    String thumb = await VideoThumbnail.thumbnailFile(
+        video: videoPathUrl,
+        imageFormat: ImageFormat.PNG,
         //this image will store in created folderpath
         quality: 10);
     return thumb;
@@ -75,6 +79,7 @@ class _VideoGridState extends State<VideoGrid> {
                   new MaterialPageRoute(
                       builder: (context) => PlayVideo(
                             video: videoList[index],
+                        aspectRatio: widget.aspectRatio,
                           )),
                 ).then((value) {
                   widget.interstitialAd = createInterstitialAd()..load();

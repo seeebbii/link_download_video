@@ -57,7 +57,7 @@ class _LikeeState extends State<Likee> {
           backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
           title: Text("Likee"),
         ),
-        body: VideoGrid(directory: _videoDir, interstitialAd: widget.interstitialAd,),
+        body: VideoGrid(directory: _videoDir, interstitialAd: widget.interstitialAd, aspectRatio: 9/16),
       );
     }
   }

@@ -32,7 +32,7 @@ class _VideoControllerState extends State<VideoController> {
       autoInitialize:true,
       looping: widget.looping,
       allowFullScreen: true,
-      aspectRatio: 9/16,
+      aspectRatio: widget.aspectRatio,
       //autoPlay: true,
       errorBuilder: (context, errorMessage){
         return Center(child: Text(errorMessage),);
