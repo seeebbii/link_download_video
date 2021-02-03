@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:link_download_video/directory/storage.dart';
 import 'package:link_download_video/screens/PlayVideo.dart';
 import 'package:thumbnails/thumbnails.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 
 class VideoGrid extends StatefulWidget {
   final Directory directory;
@@ -21,6 +22,7 @@ class VideoGrid extends StatefulWidget {
 
 class _VideoGridState extends State<VideoGrid> {
 
+
   InterstitialAd createInterstitialAd(){
     return InterstitialAd(adUnitId: InterstitialAd.testAdUnitId, listener: (MobileAdEvent event){
       print("Interstitial event: $event");
@@ -30,9 +32,9 @@ class _VideoGridState extends State<VideoGrid> {
 
   _getImage(videoPathUrl) async {
     //await Future.delayed(Duration(milliseconds: 500));
-    String thumb = await Thumbnails.getThumbnail(
-        videoFile: videoPathUrl,
-        imageType: ThumbFormat.PNG,
+    String thumb = await VideoThumbnail.thumbnailFile(
+        video: videoPathUrl,
+        imageFormat: ImageFormat.PNG,
         //this image will store in created folderpath
         quality: 10);
     return thumb;
