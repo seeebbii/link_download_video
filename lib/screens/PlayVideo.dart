@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_share/flutter_share.dart';
 import 'package:link_download_video/screens/video_controller.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:share/share.dart';
 
 import 'package:video_player/video_player.dart';
 
@@ -88,30 +88,13 @@ class _PlayVideoState extends State<PlayVideo> {
     }
   }
 
-  Future<void> shareFile() async {
-    await FlutterShare.shareFile(
-      title: 'Share This Video',
-      text: 'This is a video',
-      filePath: widget.video,
-    );
-  }
 
-  Future<void> share() async {
-    await FlutterShare.share(
-        title: 'Example share',
-        text: 'Example share text',
-        linkUrl: 'https://flutter.dev/',
-        chooserTitle: 'Example Chooser Title'
-    );
-  }
+  Future<void> shareThisFile() async {
 
-  Future<void> shareScreenShot() async {
-    await Future.delayed(Duration(seconds: 1));
-
-    await FlutterShare.shareFile(
-      title: 'Testing video',
-      filePath: widget.video,
-    );
+    Directory dir = new Directory("${widget.video}");
+    List<String> list = [];
+    list.add(widget.video);
+    Share.shareFiles(list, text: "Share this Video");
   }
 
   @override
@@ -121,7 +104,7 @@ class _PlayVideoState extends State<PlayVideo> {
         elevation: 0.0,
         backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
         actions: [
-          IconButton(icon: Icon(Icons.share), onPressed: shareScreenShot)
+          IconButton(icon: Icon(Icons.share), onPressed: shareThisFile)
         ],
         leading: IconButton(
           color: Colors.indigo,
