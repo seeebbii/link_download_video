@@ -26,20 +26,22 @@ class GalleryScreen extends StatefulWidget {
 }
 
 class _GalleryScreenState extends State<GalleryScreen> {
-
   InterstitialAd _interstitialAd;
 
-  InterstitialAd createInterstitialAd(){
-    return InterstitialAd(adUnitId: InterstitialAd.testAdUnitId, listener: (MobileAdEvent event){
-      print("Interstitial event: $event");
-    });
+  InterstitialAd createInterstitialAd() {
+    return InterstitialAd(
+        adUnitId: InterstitialAd.testAdUnitId,
+        listener: (MobileAdEvent event) {
+          print("Interstitial event: $event");
+        });
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    FirebaseAdMob.instance.initialize(appId: 'ca-app-pub-3940256099942544~3347511713');
+    FirebaseAdMob.instance
+        .initialize(appId: 'ca-app-pub-3940256099942544~3347511713');
     _interstitialAd = createInterstitialAd()..load();
   }
 
@@ -48,7 +50,6 @@ class _GalleryScreenState extends State<GalleryScreen> {
     // TODO: implement dispose
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +76,12 @@ class _GalleryScreenState extends State<GalleryScreen> {
                             onTap: () {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (_) {
-                                return TikTok(interstitialAd: _interstitialAd,);
-                              })).then((value){
-                                _interstitialAd = createInterstitialAd()..load();
+                                return TikTok(
+                                  interstitialAd: _interstitialAd,
+                                );
+                              })).then((value) {
+                                _interstitialAd = createInterstitialAd()
+                                  ..load();
                               });
                             },
                             child: CircleAvatar(
@@ -104,9 +108,12 @@ class _GalleryScreenState extends State<GalleryScreen> {
                             onTap: () {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (_) {
-                                return Likee(interstitialAd: _interstitialAd,);
-                              })).then((value){
-                                _interstitialAd = createInterstitialAd()..load();
+                                return Likee(
+                                  interstitialAd: _interstitialAd,
+                                );
+                              })).then((value) {
+                                _interstitialAd = createInterstitialAd()
+                                  ..load();
                               });
                             },
                             child: CircleAvatar(
@@ -305,14 +312,14 @@ class _GalleryScreenState extends State<GalleryScreen> {
                             onTap: () {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (_) {
-                                return Rizzle();
+                                return SnackVideo();
                               }));
                             },
                             child: CircleAvatar(
                               radius: 30,
                               backgroundColor: Colors.grey.shade200,
                               child: Image.asset(
-                                'assets/logo/Rizzle.png',
+                                'assets/logo/snackVideo.png',
                                 height: 30,
                               ),
                             ),
@@ -321,7 +328,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
                             height: 10,
                           ),
                           Text(
-                            "Rizzle",
+                            "SnackVideo",
                             style: TextStyle(fontSize: 13),
                           )
                         ],
@@ -595,14 +602,14 @@ class _GalleryScreenState extends State<GalleryScreen> {
                             onTap: () {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (_) {
-                                return SnackVideo();
+                                return Rizzle();
                               }));
                             },
                             child: CircleAvatar(
                               radius: 30,
                               backgroundColor: Colors.grey.shade200,
                               child: Image.asset(
-                                'assets/logo/snackVideo.png',
+                                'assets/logo/Rizzle.png',
                                 height: 30,
                               ),
                             ),
@@ -611,7 +618,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
                             height: 10,
                           ),
                           Text(
-                            "SnackVideo",
+                            "Rizzle",
                             style: TextStyle(fontSize: 13),
                           )
                         ],

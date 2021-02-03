@@ -14,21 +14,22 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   BannerAd _bannerAd;
 
-  BannerAd createBannerAdd() {
-    return BannerAd(
-        adUnitId: BannerAd.testAdUnitId,
-        size: AdSize.smartBanner,
-        listener: (MobileAdEvent event) {
-          print("Banner Event: $event");
-        });
-  }
+  //BannerAd createBannerAdd() {
+  //return BannerAd(
+  //adUnitId: BannerAd.testAdUnitId,
+  //size: AdSize.smartBanner,
+  //listener: (MobileAdEvent event) {
+  //    print("Banner Event: $event");
+  //    });
+  //}
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    FirebaseAdMob.instance.initialize(appId: 'ca-app-pub-3940256099942544~3347511713');
-    _bannerAd = createBannerAdd()..load();
+    FirebaseAdMob.instance
+        .initialize(appId: 'ca-app-pub-3940256099942544~3347511713');
+    //_bannerAd = createBannerAdd()..load();
   }
 
   @override
@@ -38,11 +39,9 @@ class _HomeScreenState extends State<HomeScreen> {
     _bannerAd?.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
-    Timer(Duration(seconds: 5), (){
+    Timer(Duration(seconds: 5), () {
       _bannerAd?.show();
     });
 
@@ -60,8 +59,8 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.of(context).push(MaterialPageRoute(builder: (_) {
                 return GalleryScreen();
               })).then((value) {
-                _bannerAd = createBannerAdd()..load();
-                _bannerAd?.show();
+                // _bannerAd = createBannerAdd()..load();
+                //_bannerAd?.show();
               });
             },
           )
@@ -309,13 +308,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             InkWell(
                               onTap: () {
                                 Navigator.of(context)
-                                    .pushNamed("/rizzleDownload");
+                                    .pushNamed("/snackvideoDownload");
                               },
                               child: CircleAvatar(
                                 radius: 30,
                                 backgroundColor: Colors.grey.shade200,
                                 child: Image.asset(
-                                  'assets/logo/Rizzle.png',
+                                  'assets/logo/snackVideo.png',
                                   height: 30,
                                 ),
                               ),
@@ -324,7 +323,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 10,
                             ),
                             Text(
-                              "Rizzle",
+                              "SnackVideo",
                               style: TextStyle(fontSize: 13),
                             )
                           ],
@@ -578,13 +577,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             InkWell(
                               onTap: () {
                                 Navigator.of(context)
-                                    .pushNamed("/snackvideoDownload");
+                                    .pushNamed("/rizzleDownload");
                               },
                               child: CircleAvatar(
                                 radius: 30,
                                 backgroundColor: Colors.grey.shade200,
                                 child: Image.asset(
-                                  'assets/logo/snackVideo.png',
+                                  'assets/logo/Rizzle.png',
                                   height: 30,
                                 ),
                               ),
@@ -593,7 +592,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 10,
                             ),
                             Text(
-                              "SnackVideo",
+                              "Rizzle",
                               style: TextStyle(fontSize: 13),
                             )
                           ],
@@ -628,8 +627,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .push(MaterialPageRoute(builder: (_) {
                                   return GalleryScreen();
                                 })).then((value) {
-                                  _bannerAd = createBannerAdd()..load();
-                                  _bannerAd?.show();
+                                  //_bannerAd = createBannerAdd()..load();
+                                  //_bannerAd?.show();
                                 });
                               },
                               child: CircleAvatar(
@@ -686,7 +685,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 90,)
+            SizedBox(
+              height: 90,
+            )
           ],
         ),
       ),
