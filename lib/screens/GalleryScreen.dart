@@ -19,6 +19,7 @@ import 'package:link_download_video/galleryScreens/Triller.dart';
 import 'package:link_download_video/galleryScreens/Twitter.dart';
 import 'package:link_download_video/galleryScreens/Vimeo.dart';
 import 'package:link_download_video/galleryScreens/Whatsapp.dart';
+import 'package:link_download_video/galleryScreens/WhatsappBusiness.dart';
 
 class GalleryScreen extends StatefulWidget {
   @override
@@ -232,8 +233,10 @@ class _GalleryScreenState extends State<GalleryScreen> {
                             onTap: () {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (_) {
-                                return Whatsapp();
-                              }));
+                                return Whatsapp(interstitialAd: _interstitialAd);
+                              })).then((value) {
+                                _interstitialAd = createInterstitialAd()..load();
+                              });
                             },
                             child: CircleAvatar(
                               radius: 30,
@@ -625,6 +628,35 @@ class _GalleryScreenState extends State<GalleryScreen> {
                           ),
                           Text(
                             "Rizzle",
+                            style: TextStyle(fontSize: 13),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(builder: (_) {
+                                return WhatsappBusiness(interstitialAd: _interstitialAd);
+                              })).then((value) {
+                                _interstitialAd = createInterstitialAd()..load();
+                              });
+                            },
+                            child: CircleAvatar(
+                              radius: 30,
+                              backgroundColor: Colors.grey.shade200,
+                              child: Image.asset(
+                                'assets/logo/whatsapp.png',
+                                height: 30,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "WhatsApp Business",
                             style: TextStyle(fontSize: 13),
                           )
                         ],

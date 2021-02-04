@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:link_download_video/directory/storage.dart';
 import 'package:link_download_video/screens/PlayVideo.dart';
@@ -8,6 +9,12 @@ import 'package:link_download_video/widgets/VideoGrid.dart';
 import 'package:thumbnails/thumbnails.dart';
 final Directory _videoDir = new Directory('/data/user/0/com.codeminers.link_download_video/app_flutter/whatsapp/');
 class Whatsapp extends StatefulWidget {
+
+  InterstitialAd interstitialAd;
+
+
+  Whatsapp({this.interstitialAd});
+
   @override
   _WhatsappState createState() => _WhatsappState();
 }
@@ -50,7 +57,7 @@ class _WhatsappState extends State<Whatsapp> {
           backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
           title: Text("Whatsapp"),
         ),
-        body: VideoGrid(directory: _videoDir),
+        body: VideoGrid(directory: _videoDir, interstitialAd: widget.interstitialAd,),
       );
     }
   }

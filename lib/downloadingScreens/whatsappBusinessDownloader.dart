@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:link_download_video/screens/video_controller.dart';
 import 'package:path_provider/path_provider.dart';
@@ -47,6 +48,7 @@ class _WhatsappBusinessDownloaderState extends State<WhatsappBusinessDownloader>
 class VideoGrid extends StatefulWidget {
   final Directory directory;
 
+
   const VideoGrid({Key key, this.directory}) : super(key: key);
 
   @override
@@ -54,6 +56,9 @@ class VideoGrid extends StatefulWidget {
 }
 
 class _VideoGridState extends State<VideoGrid> {
+
+
+
   _getImage(videoPathUrl) async {
     //await Future.delayed(Duration(milliseconds: 500));
     String thumb = await Thumbnails.getThumbnail(
