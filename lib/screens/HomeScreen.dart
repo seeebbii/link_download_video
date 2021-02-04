@@ -6,6 +6,7 @@ import 'package:link_download_video/downloadingScreens/LikeeDownloader.dart';
 import 'package:link_download_video/downloadingScreens/TikTokDownloader.dart';
 import 'package:link_download_video/downloadingScreens/whatsappBusinessDownloader.dart';
 import 'package:link_download_video/screens/GalleryScreen.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -601,8 +602,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         Column(
                           children: [
                             InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (_){
+                              onTap: () async {
+                                var status = await Permission.storage.status;
+                                print(status);
+                                if (!status.isGranted) {
+                                  await Permission.storage.request();
+                                }
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute(builder: (_) {
                                   return WhatsappBusinessDownloader();
                                 }));
                               },

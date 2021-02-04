@@ -7,14 +7,17 @@ import 'package:path_provider/path_provider.dart';
 import 'package:thumbnails/thumbnails.dart';
 import 'package:video_player/video_player.dart';
 
-final Directory _videoDir =  new Directory('/storage/emulated/0/WhatsApp Business/Media/.Statuses');
+final Directory _videoDir =
+    new Directory("/storage/emulated/0/WhatsApp Business/Media/.Statuses");
 
 class WhatsappBusinessDownloader extends StatefulWidget {
   @override
-  _WhatsappBusinessDownloaderState createState() => _WhatsappBusinessDownloaderState();
+  _WhatsappBusinessDownloaderState createState() =>
+      _WhatsappBusinessDownloaderState();
 }
 
-class _WhatsappBusinessDownloaderState extends State<WhatsappBusinessDownloader> {
+class _WhatsappBusinessDownloaderState
+    extends State<WhatsappBusinessDownloader> {
   @override
   Widget build(BuildContext context) {
     if (!Directory("${_videoDir.path}").existsSync()) {
@@ -48,7 +51,6 @@ class _WhatsappBusinessDownloaderState extends State<WhatsappBusinessDownloader>
 class VideoGrid extends StatefulWidget {
   final Directory directory;
 
-
   const VideoGrid({Key key, this.directory}) : super(key: key);
 
   @override
@@ -56,14 +58,12 @@ class VideoGrid extends StatefulWidget {
 }
 
 class _VideoGridState extends State<VideoGrid> {
-
-
-
   _getImage(videoPathUrl) async {
     //await Future.delayed(Duration(milliseconds: 500));
     String thumb = await Thumbnails.getThumbnail(
         videoFile: videoPathUrl,
-        imageType: ThumbFormat.PNG, //this image will store in created folderpath
+        imageType:
+            ThumbFormat.PNG, //this image will store in created folderpath
         quality: 10);
     return thumb;
   }
@@ -88,8 +88,8 @@ class _VideoGridState extends State<VideoGrid> {
                 context,
                 new MaterialPageRoute(
                     builder: (context) => PlayVideo(
-                      video: videoList[index],
-                    )),
+                          video: videoList[index],
+                        )),
               ),
               child: FutureBuilder(
                   future: _getImage(videoList[index]),
@@ -262,7 +262,8 @@ class _PlayVideoState extends State<PlayVideo> {
 
               File originalVideoFile = File(widget.video);
               Directory directory = await getApplicationDocumentsDirectory();
-              if (!Directory("${directory.path}/whatsappBusiness").existsSync()) {
+              if (!Directory("${directory.path}/whatsappBusiness")
+                  .existsSync()) {
                 Directory("${directory.path}/whatsappBusiness")
                     .createSync(recursive: true);
               }
@@ -288,4 +289,3 @@ class _PlayVideoState extends State<PlayVideo> {
     );
   }
 }
-
