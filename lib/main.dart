@@ -19,6 +19,7 @@ import 'package:link_download_video/downloadingScreens/trellDownloader.dart';
 import 'package:link_download_video/downloadingScreens/trillerDownloader.dart';
 import 'package:link_download_video/downloadingScreens/twitterDownloader.dart';
 import 'package:link_download_video/downloadingScreens/vimeoDownloader.dart';
+import 'package:link_download_video/downloadingScreens/whatsappBusinessDownloader.dart';
 import 'package:link_download_video/downloadingScreens/whatsappDownloader.dart';
 import 'package:link_download_video/galleryScreens/aboutus.dart';
 import 'package:link_download_video/screens/SplashScreen.dart';

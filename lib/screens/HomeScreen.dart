@@ -4,6 +4,7 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:link_download_video/downloadingScreens/LikeeDownloader.dart';
 import 'package:link_download_video/downloadingScreens/TikTokDownloader.dart';
+import 'package:link_download_video/downloadingScreens/whatsappBusinessDownloader.dart';
 import 'package:link_download_video/screens/GalleryScreen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -593,6 +594,32 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Text(
                               "Rizzle",
+                              style: TextStyle(fontSize: 13),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (_){
+                                  return WhatsappBusinessDownloader();
+                                }));
+                              },
+                              child: CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.grey.shade200,
+                                child: Image.asset(
+                                  'assets/logo/whatsapp.png',
+                                  height: 30,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "WhatsApp Business",
                               style: TextStyle(fontSize: 13),
                             )
                           ],
