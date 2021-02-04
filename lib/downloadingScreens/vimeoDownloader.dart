@@ -8,7 +8,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:http/http.dart' as http;
 
-
 class vimeoDownloader extends StatefulWidget {
   @override
   _vimeoDownloaderState createState() => _vimeoDownloaderState();
@@ -28,7 +27,7 @@ class _vimeoDownloaderState extends State<vimeoDownloader> {
     } else {
       var url = fieldController.text.toString();
 
-      if (url.startsWith("https://vimeo.com/")){
+      if (url.startsWith("https://vimeo.com/")) {
         // SHOW DOWNLOAD PROGRESS
         showDialog(
           context: context,
@@ -38,16 +37,16 @@ class _vimeoDownloaderState extends State<vimeoDownloader> {
                 onWillPop: () async => false, child: downloading);
           },
         );
-        var response = await http.get("https://appvideopromo.000webhostapp.com/index.php?url=" + url);
+        var response = await http.get(
+            "https://appvideopromo.000webhostapp.com/index.php?url=" + url);
         List<dynamic> myVideo = json.decode(response.body);
-        for(int i = 0; i < myVideo.length; i++){
-          if(myVideo[i]["quality"] == "720p"){
+        for (int i = 0; i < myVideo.length; i++) {
+          if (myVideo[i]["quality"] == "720p") {
             finalLink = myVideo[i]['url'];
           }
         }
 
         downloadFile("$finalLink");
-
       } else {
         // INVALID LINK
         final snackBar = SnackBar(content: Text('Invalid Link'));
@@ -83,12 +82,12 @@ class _vimeoDownloaderState extends State<vimeoDownloader> {
       if (await directory.exists()) {
         await dio.download(url, saveFile.path,
             onReceiveProgress: (value1, value2) {
-              setState(() {
-                int total = 10;
-                progress = value1 /value2;
-                print("$progress: Total: $value2");
-              });
-            });
+          setState(() {
+            int total = 10;
+            progress = value1 / value2;
+            print("$progress: Total: $value2");
+          });
+        });
         if (Platform.isIOS) {
           await ImageGallerySaver.saveFile(saveFile.path,
               isReturnPathOfIOS: true);
@@ -163,47 +162,49 @@ class _vimeoDownloaderState extends State<vimeoDownloader> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: fieldController,
-              decoration: InputDecoration(
-                labelText: "Enter Link for Vimeo",
-                labelStyle: TextStyle(
-                  color: Color.fromRGBO(171, 63, 65, 1.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              TextField(
+                controller: fieldController,
+                decoration: InputDecoration(
+                  labelText: "Enter Link for Vimeo",
+                  labelStyle: TextStyle(
                     color: Color.fromRGBO(171, 63, 65, 1.0),
-                    width: 1.0,
                   ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color.fromRGBO(171, 63, 65, 1.0),
-                    width: 1.0,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color.fromRGBO(171, 63, 65, 1.0),
+                      width: 1.0,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color.fromRGBO(171, 63, 65, 1.0),
+                      width: 1.0,
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 15.0,
-            ),
-            ElevatedButton(
-              child: Text("Download"),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed))
-                      return Color.fromRGBO(171, 63, 65, 1.0);
-                    return Color.fromRGBO(
-                        255, 119, 129, 1.0); // Use the component's default.
-                  },
-                ),
+              SizedBox(
+                height: 15.0,
               ),
-              onPressed: getResponse,
-            ),
-          ],
+              ElevatedButton(
+                child: Text("Download"),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed))
+                        return Color.fromRGBO(171, 63, 65, 1.0);
+                      return Color.fromRGBO(
+                          255, 119, 129, 1.0); // Use the component's default.
+                    },
+                  ),
+                ),
+                onPressed: getResponse,
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -164,88 +164,90 @@ class _TikTokDownloaderState extends State<TikTokDownloader> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: fieldController,
-              decoration: InputDecoration(
-                labelText: "Enter Link for TikTok",
-                labelStyle: TextStyle(
-                  color: Color.fromRGBO(171, 63, 65, 1.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              TextField(
+                controller: fieldController,
+                decoration: InputDecoration(
+                  labelText: "Enter Link for TikTok",
+                  labelStyle: TextStyle(
                     color: Color.fromRGBO(171, 63, 65, 1.0),
-                    width: 1.0,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color.fromRGBO(171, 63, 65, 1.0),
+                      width: 1.0,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color.fromRGBO(171, 63, 65, 1.0),
+                      width: 1.0,
+                    ),
                   ),
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color.fromRGBO(171, 63, 65, 1.0),
-                    width: 1.0,
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed))
+                        return Color.fromRGBO(171, 63, 65, 1.0);
+                      return Color.fromRGBO(
+                          255, 119, 129, 1.0); // Use the component's default.
+                    },
                   ),
                 ),
+                child: Text(
+                  "Download",
+                ),
+                onPressed: getResponse,
               ),
-            ),
-            SizedBox(
-              height: 15.0,
-            ),
-            ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed))
-                      return Color.fromRGBO(171, 63, 65, 1.0);
-                    return Color.fromRGBO(
-                        255, 119, 129, 1.0); // Use the component's default.
-                  },
+              SizedBox(
+                height: 30.0,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(14.0),
+                child: Column(
+                  children: [
+                    Text(
+                      "Follow the Steps below to Download Video From TikTok!",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18.0),
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    Text(
+                      "Step 1: Open TikTok and Press the Share button of the video you wish to Download.",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 14.0),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      "Step 2: Select the Copy URL Option from the Video Menu and Paste it Over here.",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 14.0),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      "Step 3: Then Click the Download button and wait until you see the Download Complete Box.",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 14.0),
+                    ),
+                  ],
                 ),
               ),
-              child: Text(
-                "Download",
-              ),
-              onPressed: getResponse,
-            ),
-            SizedBox(
-              height: 30.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(14.0),
-              child: Column(
-                children: [
-                  Text(
-                    "Follow the Steps below to Download Video From TikTok!",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-                  ),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  Text(
-                    "Step 1: Open TikTok and Press the Share button of the video you wish to Download.",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Text(
-                    "Step 2: Select the Copy URL Option from the Video Menu and Paste it Over here.",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Text(
-                    "Step 3: Then Click the Download button and wait until you see the Download Complete Box.",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -5,15 +5,15 @@ import 'package:path_provider/path_provider.dart';
 import 'package:thumbnails/thumbnails.dart';
 import 'package:video_player/video_player.dart';
 
+final Directory _videoDir =
+    new Directory('/storage/emulated/0/WhatsApp/Media/.Statuses');
 
-final Directory _videoDir = new Directory('/storage/emulated/0/WhatsApp/Media/.Statuses');
 class whatsappDownloader extends StatefulWidget {
   @override
   _whatsappDownloaderState createState() => _whatsappDownloaderState();
 }
 
 class _whatsappDownloaderState extends State<whatsappDownloader> {
-
   @override
   void initState() {
     // TODO: implement initState
@@ -34,14 +34,12 @@ class _whatsappDownloaderState extends State<whatsappDownloader> {
           child: Center(
             child: Text(
               "Install WhatsApp\nYour Friend's Status will be available here.",
-              style: TextStyle(
-                  fontSize: 18.0
-              ),),
+              style: TextStyle(fontSize: 18.0),
+            ),
           ),
         ),
       );
-    }
-    else {
+    } else {
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
@@ -63,30 +61,39 @@ class VideoGrid extends StatefulWidget {
 }
 
 class _VideoGridState extends State<VideoGrid> {
-
   _getImage(videoPathUrl) async {
     //await Future.delayed(Duration(milliseconds: 500));
     String thumb = await Thumbnails.getThumbnail(
         videoFile: videoPathUrl,
-        imageType: ThumbFormat.PNG,//this image will store in created folderpath
+        imageType:
+            ThumbFormat.PNG, //this image will store in created folderpath
         quality: 10);
     return thumb;
   }
 
   @override
   Widget build(BuildContext context) {
-    var videoList = widget.directory.listSync().map((item) => item.path).where((item) => item.endsWith(".mp4")).toList(growable: false);
+    var videoList = widget.directory
+        .listSync()
+        .map((item) => item.path)
+        .where((item) => item.endsWith(".mp4"))
+        .toList(growable: false);
 
-    if(videoList!=null){
-      if(videoList.length>0){
+    if (videoList != null) {
+      if (videoList.length > 0) {
         return GridView.builder(
           itemCount: videoList.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2, childAspectRatio: 8.0/8.0),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, childAspectRatio: 8.0 / 8.0),
           itemBuilder: (context, index) {
             return InkWell(
-              onTap: ()=> Navigator.push(context, new MaterialPageRoute(
-                  builder: (context)=>  PlayVideo(video: videoList[index],)
-              ),),
+              onTap: () => Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (context) => PlayVideo(
+                          video: videoList[index],
+                        )),
+              ),
               child: FutureBuilder(
                   future: _getImage(videoList[index]),
                   builder: (context, snapshot) {
@@ -99,11 +106,12 @@ class _VideoGridState extends State<VideoGrid> {
                             height: 150.0,
                           ),
                         );
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
                       }
-                      else{
-                        return Center(child: CircularProgressIndicator(),);
-                      }
-                    }else{
+                    } else {
                       return Hero(
                         tag: videoList[index],
                         child: Container(
@@ -112,23 +120,25 @@ class _VideoGridState extends State<VideoGrid> {
                         ),
                       );
                     }
-                  }
-              ),
+                  }),
             );
           },
         );
-      }else{
+      } else {
         return Center(
           child: Container(
             padding: EdgeInsets.only(bottom: 60.0),
-            child: Text("Sorry, No Videos Found.", style: TextStyle(
-                fontSize: 18.0
-            ),),
+            child: Text(
+              "Sorry, No Videos Found.",
+              style: TextStyle(fontSize: 18.0),
+            ),
           ),
         );
       }
-    }else{
-      return Center(child: CircularProgressIndicator(),);
+    } else {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
     }
   }
 }
@@ -142,23 +152,22 @@ class PlayVideo extends StatefulWidget {
 }
 
 class _PlayVideoState extends State<PlayVideo> {
-
   @override
   void initState() {
     super.initState();
-    print("here is what you looking for:"+widget.video);
+    print("here is what you looking for:" + widget.video);
   }
 
   void dispose() {
     super.dispose();
   }
 
-  void _onLoading(bool t,String str){
-    if(t){
+  void _onLoading(bool t, String str) {
+    if (t) {
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (BuildContext context){
+          builder: (BuildContext context) {
             return SimpleDialog(
               children: <Widget>[
                 Center(
@@ -168,14 +177,13 @@ class _PlayVideoState extends State<PlayVideo> {
                 ),
               ],
             );
-          }
-      );
-    }else{
+          });
+    } else {
       Navigator.pop(context);
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (BuildContext context){
+          builder: (BuildContext context) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: SimpleDialog(
@@ -183,25 +191,40 @@ class _PlayVideoState extends State<PlayVideo> {
                   Center(
                     child: Container(
                       padding: EdgeInsets.all(15.0),
-                      child: Column(
-                        children: <Widget>[
-                          Text("Great, Saved in App Gallery", style: TextStyle(
-                              fontSize:20,
-                              fontWeight: FontWeight.bold
-                          ),
-                          ),
-                          Padding(padding: EdgeInsets.all(10.0),),
-                          Text(str,style:TextStyle( fontSize:16.0, )),
-                          Padding(padding: EdgeInsets.all(10.0),),
-                          Text("App > Gallery > Whatsapp",style:TextStyle( fontSize:16.0, color: Colors.teal )),
-                          Padding(padding: EdgeInsets.all(10.0),),
-                          MaterialButton(
-                            child: Text("Close"),
-                            color:Colors.teal,
-                            textColor: Colors.white,
-                            onPressed:  ()=> Navigator.pop(context),
-                          )
-                        ],
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              "Great, Saved in App Gallery",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(10.0),
+                            ),
+                            Text(str,
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                )),
+                            Padding(
+                              padding: EdgeInsets.all(10.0),
+                            ),
+                            Text("App > Gallery > Whatsapp",
+                                style: TextStyle(
+                                    fontSize: 16.0, color: Colors.teal)),
+                            Padding(
+                              padding: EdgeInsets.all(10.0),
+                            ),
+                            MaterialButton(
+                              child: Text("Close"),
+                              color: Colors.teal,
+                              textColor: Colors.white,
+                              onPressed: () => Navigator.pop(context),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -215,7 +238,7 @@ class _PlayVideoState extends State<PlayVideo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(
+      appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
         leading: IconButton(
@@ -224,25 +247,27 @@ class _PlayVideoState extends State<PlayVideo> {
             Icons.close,
             color: Colors.white,
           ),
-          onPressed: ()=> Navigator.of(context).pop(),
+          onPressed: () => Navigator.of(context).pop(),
         ),
         title: Container(
           padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
-          child:  FlatButton.icon(
-            color:Colors.indigo,
+          child: FlatButton.icon(
+            color: Colors.indigo,
             textColor: Colors.white,
             icon: Icon(Icons.file_download),
             padding: EdgeInsets.all(10.0),
-            label: Text('Download Status', style: TextStyle(
-                fontSize:16.0
-            ),), //`Text` to display
-            onPressed: () async{
-              _onLoading(true,"");
+            label: Text(
+              'Download Status',
+              style: TextStyle(fontSize: 16.0),
+            ), //`Text` to display
+            onPressed: () async {
+              _onLoading(true, "");
 
               File originalVideoFile = File(widget.video);
               Directory directory = await getApplicationDocumentsDirectory();
-              if(!Directory("${directory.path}/whatsapp").existsSync()){
-                Directory("${directory.path}/whatsapp").createSync(recursive: true);
+              if (!Directory("${directory.path}/whatsapp").existsSync()) {
+                Directory("${directory.path}/whatsapp")
+                    .createSync(recursive: true);
               }
               String path = directory.path;
               String curDate = DateTime.now().toString();
@@ -250,7 +275,8 @@ class _PlayVideoState extends State<PlayVideo> {
               print(newFileName);
               await originalVideoFile.copy(newFileName);
 
-              _onLoading(false,"If Video not available in gallary\n\nYou can find all videos at");
+              _onLoading(false,
+                  "If Video not available in gallary\n\nYou can find all videos at");
             },
           ),
         ),
@@ -265,5 +291,3 @@ class _PlayVideoState extends State<PlayVideo> {
     );
   }
 }
-
-

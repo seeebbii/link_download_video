@@ -32,7 +32,8 @@ class _LikeeDownloaderState extends State<LikeeDownloader> {
     } else {
       var url = fieldController.text.toString();
 
-      if (url.startsWith("https://likee.video/") || url.startsWith("https://mobile.likee.video/")) {
+      if (url.startsWith("https://likee.video/") ||
+          url.startsWith("https://mobile.likee.video/")) {
         // SHOW DOWNLOAD PROGRESS
         showDialog(
           context: context,
@@ -164,86 +165,88 @@ class _LikeeDownloaderState extends State<LikeeDownloader> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: fieldController,
-              decoration: InputDecoration(
-                labelText: "Enter Link for Likee",
-                labelStyle: TextStyle(
-                  color: Color.fromRGBO(171, 63, 65, 1.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              TextField(
+                controller: fieldController,
+                decoration: InputDecoration(
+                  labelText: "Enter Link for Likee",
+                  labelStyle: TextStyle(
                     color: Color.fromRGBO(171, 63, 65, 1.0),
-                    width: 1.0,
                   ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color.fromRGBO(171, 63, 65, 1.0),
-                    width: 1.0,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color.fromRGBO(171, 63, 65, 1.0),
+                      width: 1.0,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color.fromRGBO(171, 63, 65, 1.0),
+                      width: 1.0,
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 15.0,
-            ),
-            ElevatedButton(
-              child: Text("Download"),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed))
-                      return Color.fromRGBO(171, 63, 65, 1.0);
-                    return Color.fromRGBO(
-                        255, 119, 129, 1.0); // Use the component's default.
-                  },
+              SizedBox(
+                height: 15.0,
+              ),
+              ElevatedButton(
+                child: Text("Download"),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed))
+                        return Color.fromRGBO(171, 63, 65, 1.0);
+                      return Color.fromRGBO(
+                          255, 119, 129, 1.0); // Use the component's default.
+                    },
+                  ),
+                ),
+                onPressed: getResponse,
+              ),
+              SizedBox(
+                height: 30.0,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(14.0),
+                child: Column(
+                  children: [
+                    Text(
+                      "Follow the Steps below to Download Video From Likee!",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18.0),
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    Text(
+                      "Step 1: Open Likee and Press the Share button of the video you wish to Download.",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 14.0),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      "Step 2: Select the Copy URL Option from the Video Menu and Paste it Over here.",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 14.0),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      "Step 3: Then Click the Download button and wait until you see the Download Complete Box.",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 14.0),
+                    ),
+                  ],
                 ),
               ),
-              onPressed: getResponse,
-            ),
-            SizedBox(
-              height: 30.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(14.0),
-              child: Column(
-                children: [
-                  Text(
-                    "Follow the Steps below to Download Video From Likee!",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-                  ),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  Text(
-                    "Step 1: Open Likee and Press the Share button of the video you wish to Download.",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Text(
-                    "Step 2: Select the Copy URL Option from the Video Menu and Paste it Over here.",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Text(
-                    "Step 3: Then Click the Download button and wait until you see the Download Complete Box.",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -21,7 +21,6 @@ class _instagramDownloaderState extends State<instagramDownloader> {
   InstaProfile _instaProfile;
   InstaPost _instaPost = InstaPost();
 
-
   void getResponse() async {
     if (fieldController.text.isEmpty) {
       final snackBar = SnackBar(
@@ -32,7 +31,8 @@ class _instagramDownloaderState extends State<instagramDownloader> {
       var url = fieldController.text.toString();
 
       if (url.startsWith("https://www.instagram.com/p/") ||
-          url.startsWith("https://www.instagram.com/tv/") || url.startsWith("https://www.instagram.com/reel/")){
+          url.startsWith("https://www.instagram.com/tv/") ||
+          url.startsWith("https://www.instagram.com/reel/")) {
         // SHOW DOWNLOAD PROGRESS
         showDialog(
           context: context,
@@ -45,15 +45,15 @@ class _instagramDownloaderState extends State<instagramDownloader> {
 
         _instaProfile = await InstaData.postFromUrl('$url');
 
-        if(_instaProfile == null){
+        if (_instaProfile == null) {
           // Profile Null
           Navigator.of(context).pop();
           final snackBar = SnackBar(content: Text('Invalid Link'));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        }else{
+        } else {
           // Profile not null
 
-          if(_instaProfile.isPrivate){
+          if (_instaProfile.isPrivate) {
             // ALERT FOR PRIVATE PROFILE
             Navigator.of(context).pop();
             showDialog(
@@ -66,7 +66,7 @@ class _instagramDownloaderState extends State<instagramDownloader> {
           }
           // PROFILE NOT PRIVATE
           _instaPost = _instaProfile.postData;
-          if(_instaPost.childPostsCount > 1){
+          if (_instaPost.childPostsCount > 1) {
             Navigator.of(context).pop();
 
             showDialog(
@@ -78,21 +78,17 @@ class _instagramDownloaderState extends State<instagramDownloader> {
               },
             );
 
-            _instaPost.childposts.forEach((element){
-              downloadMultipleFiles(element.videoUrl, _instaPost.childPostsCount);
+            _instaPost.childposts.forEach((element) {
+              downloadMultipleFiles(
+                  element.videoUrl, _instaPost.childPostsCount);
             });
-
-          } else{
+          } else {
             print(_instaPost.videoUrl);
             downloadFile(_instaPost.videoUrl);
           }
-
         }
-
-      } else if(url.startsWith("https://www.instagram.com/stories/")){
-
-      }
-      else {
+      } else if (url.startsWith("https://www.instagram.com/stories/")) {
+      } else {
         // INVALID LINK
         final snackBar = SnackBar(content: Text('Invalid Link'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -127,12 +123,12 @@ class _instagramDownloaderState extends State<instagramDownloader> {
       if (await directory.exists()) {
         await dio.download(url, saveFile.path,
             onReceiveProgress: (value1, value2) {
-              setState(() {
-                int total = 10;
-                progress = value1 /value2;
-                print("$progress: Total: $value2");
-              });
-            });
+          setState(() {
+            int total = 10;
+            progress = value1 / value2;
+            print("$progress: Total: $value2");
+          });
+        });
         if (Platform.isIOS) {
           await ImageGallerySaver.saveFile(saveFile.path,
               isReturnPathOfIOS: true);
@@ -160,15 +156,15 @@ class _instagramDownloaderState extends State<instagramDownloader> {
 
   static int filesDownloaded = 0;
   downloadMultipleFiles(String url, int totalVideos) async {
-
     print("Total Videos $totalVideos");
-    bool downloaded = await saveVideo(url, "${DateTime.now()}.mp4").then((value){
-      if(value){
-        filesDownloaded ++;
+    bool downloaded =
+        await saveVideo(url, "${DateTime.now()}.mp4").then((value) {
+      if (value) {
+        filesDownloaded++;
       }
     });
 
-    if(filesDownloaded == totalVideos){
+    if (filesDownloaded == totalVideos) {
       Navigator.of(context).pop();
       showDialog(
         context: context,
@@ -215,9 +211,7 @@ class _instagramDownloaderState extends State<instagramDownloader> {
     //     },
     //   );
     // }
-
   }
-
 
   downloadFile(String url) async {
     bool downloaded = await saveVideo(url, "${DateTime.now()}.mp4");
@@ -265,7 +259,8 @@ class _instagramDownloaderState extends State<instagramDownloader> {
   );
   AlertDialog privateProfile = AlertDialog(
       title: Text("ERROR !"),
-      content: Text("You cannot download video from a private account!\nPress anywhere to continue"));
+      content: Text(
+          "You cannot download video from a private account!\nPress anywhere to continue"));
 
   @override
   Widget build(BuildContext context) {
@@ -276,47 +271,49 @@ class _instagramDownloaderState extends State<instagramDownloader> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: fieldController,
-              decoration: InputDecoration(
-                labelText: "Enter Link for Instagram",
-                labelStyle: TextStyle(
-                  color: Color.fromRGBO(171, 63, 65, 1.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              TextField(
+                controller: fieldController,
+                decoration: InputDecoration(
+                  labelText: "Enter Link for Instagram",
+                  labelStyle: TextStyle(
                     color: Color.fromRGBO(171, 63, 65, 1.0),
-                    width: 1.0,
                   ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color.fromRGBO(171, 63, 65, 1.0),
-                    width: 1.0,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color.fromRGBO(171, 63, 65, 1.0),
+                      width: 1.0,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color.fromRGBO(171, 63, 65, 1.0),
+                      width: 1.0,
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 15.0,
-            ),
-            ElevatedButton(
-              child: Text("Download"),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed))
-                      return Color.fromRGBO(171, 63, 65, 1.0);
-                    return Color.fromRGBO(
-                        255, 119, 129, 1.0); // Use the component's default.
-                  },
-                ),
+              SizedBox(
+                height: 15.0,
               ),
-              onPressed: getResponse,
-            ),
-          ],
+              ElevatedButton(
+                child: Text("Download"),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed))
+                        return Color.fromRGBO(171, 63, 65, 1.0);
+                      return Color.fromRGBO(
+                          255, 119, 129, 1.0); // Use the component's default.
+                    },
+                  ),
+                ),
+                onPressed: getResponse,
+              ),
+            ],
+          ),
         ),
       ),
     );

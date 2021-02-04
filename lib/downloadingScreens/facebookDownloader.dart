@@ -29,7 +29,7 @@ class _facebookDownloaderState extends State<facebookDownloader> {
       var url = fieldController.text.toString();
 
       if (url.startsWith("https://www.facebook.com/") ||
-          url.startsWith("https://fb.watch/")){
+          url.startsWith("https://fb.watch/")) {
         // SHOW DOWNLOAD PROGRESS
         showDialog(
           context: context,
@@ -42,10 +42,10 @@ class _facebookDownloaderState extends State<facebookDownloader> {
         // Await the http get response, then decode the json-formatted response.
         _fbProfile = await FacebookData.postFromUrl('${url}');
         finalLink = _fbProfile.postData.videoHdUrl;
-        if(finalLink == null){
+        if (finalLink == null) {
           final snackBar = SnackBar(content: Text('Invalid Link'));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        }else{
+        } else {
           downloadFile("$finalLink");
         }
       } else {
@@ -83,12 +83,12 @@ class _facebookDownloaderState extends State<facebookDownloader> {
       if (await directory.exists()) {
         await dio.download(url, saveFile.path,
             onReceiveProgress: (value1, value2) {
-              setState(() {
-                int total = 10;
-                progress = value1 /value2;
-                print("$progress: Total: $value2");
-              });
-            });
+          setState(() {
+            int total = 10;
+            progress = value1 / value2;
+            print("$progress: Total: $value2");
+          });
+        });
         if (Platform.isIOS) {
           await ImageGallerySaver.saveFile(saveFile.path,
               isReturnPathOfIOS: true);
@@ -164,44 +164,46 @@ class _facebookDownloaderState extends State<facebookDownloader> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              TextField(
-                controller: fieldController,
-                decoration: InputDecoration(
-                  labelText: "Enter Link for Facebook",
-                  labelStyle: TextStyle(
-                    color: Color.fromRGBO(171, 63, 65, 1.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                TextField(
+                  controller: fieldController,
+                  decoration: InputDecoration(
+                    labelText: "Enter Link for Facebook",
+                    labelStyle: TextStyle(
                       color: Color.fromRGBO(171, 63, 65, 1.0),
-                      width: 1.0,
                     ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color.fromRGBO(171, 63, 65, 1.0),
-                      width: 1.0,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color.fromRGBO(171, 63, 65, 1.0),
+                        width: 1.0,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color.fromRGBO(171, 63, 65, 1.0),
+                        width: 1.0,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              ElevatedButton(
-                child: Text("Download"),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.pressed))
-                        return Color.fromRGBO(171, 63, 65, 1.0);
-                      return Color.fromRGBO(
-                          255, 119, 129, 1.0); // Use the component's default.
-                    },
+                ElevatedButton(
+                  child: Text("Download"),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.pressed))
+                          return Color.fromRGBO(171, 63, 65, 1.0);
+                        return Color.fromRGBO(
+                            255, 119, 129, 1.0); // Use the component's default.
+                      },
+                    ),
                   ),
+                  onPressed: getResponse,
                 ),
-                onPressed:getResponse,
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

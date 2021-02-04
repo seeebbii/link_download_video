@@ -14,14 +14,14 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   BannerAd _bannerAd;
 
-  //BannerAd createBannerAdd() {
-  //return BannerAd(
-  //adUnitId: BannerAd.testAdUnitId,
-  //size: AdSize.smartBanner,
-  //listener: (MobileAdEvent event) {
-  //    print("Banner Event: $event");
-  //    });
-  //}
+  BannerAd createBannerAdd() {
+    return BannerAd(
+        adUnitId: BannerAd.testAdUnitId,
+        size: AdSize.smartBanner,
+        listener: (MobileAdEvent event) {
+          print("Banner Event: $event");
+        });
+  }
 
   @override
   void initState() {
@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     FirebaseAdMob.instance
         .initialize(appId: 'ca-app-pub-3940256099942544~3347511713');
-    //_bannerAd = createBannerAdd()..load();
+    _bannerAd = createBannerAdd()..load();
   }
 
   @override
@@ -59,8 +59,8 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.of(context).push(MaterialPageRoute(builder: (_) {
                 return GalleryScreen();
               })).then((value) {
-                // _bannerAd = createBannerAdd()..load();
-                //_bannerAd?.show();
+                _bannerAd = createBannerAdd()..load();
+                _bannerAd?.show();
               });
             },
           )
@@ -627,8 +627,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .push(MaterialPageRoute(builder: (_) {
                                   return GalleryScreen();
                                 })).then((value) {
-                                  //_bannerAd = createBannerAdd()..load();
-                                  //_bannerAd?.show();
+                                  _bannerAd = createBannerAdd()..load();
+                                  _bannerAd?.show();
                                 });
                               },
                               child: CircleAvatar(
