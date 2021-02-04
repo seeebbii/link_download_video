@@ -4,6 +4,8 @@ import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:link_download_video/screens/video_controller.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:share/share.dart';
+
 import 'package:video_player/video_player.dart';
 
 class PlayVideo extends StatefulWidget {
@@ -86,12 +88,24 @@ class _PlayVideoState extends State<PlayVideo> {
     }
   }
 
+
+  Future<void> shareThisFile() async {
+
+    Directory dir = new Directory("${widget.video}");
+    List<String> list = [];
+    list.add(widget.video);
+    Share.shareFiles(list, text: "Share this Video");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(
         elevation: 0.0,
         backgroundColor: Color.fromRGBO(255, 119, 129, 1.0),
+        actions: [
+          IconButton(icon: Icon(Icons.share), onPressed: shareThisFile)
+        ],
         leading: IconButton(
           color: Colors.indigo,
           icon: Icon(
@@ -100,34 +114,6 @@ class _PlayVideoState extends State<PlayVideo> {
           ),
           onPressed: ()=> Navigator.of(context).pop(),
         ),
-        // title: Container(
-        //   padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
-        //   child:  FlatButton.icon(
-        //     color:Colors.indigo,
-        //     textColor: Colors.white,
-        //     icon: Icon(Icons.file_download),
-        //     padding: EdgeInsets.all(10.0),
-        //     label: Text('Download', style: TextStyle(
-        //         fontSize:16.0
-        //     ),), //`Text` to display
-        //     onPressed: () async{
-        //       _onLoading(true,"");
-        //
-        //       File originalVideoFile = File(widget.video);
-        //       Directory directory = await getExternalStorageDirectory();
-        //       if(!Directory("${directory.path}/Downloaded Status/Videos").existsSync()){
-        //         Directory("${directory.path}/Downloaded Status/Videos").createSync(recursive: true);
-        //       }
-        //       String path = directory.path;
-        //       String curDate = DateTime.now().toString();
-        //       String newFileName = "$path/Downloaded Status/Videos/VIDEO-$curDate.mp4";
-        //       print(newFileName);
-        //       await originalVideoFile.copy(newFileName);
-        //
-        //       _onLoading(false,"If Video not available in gallary\n\nYou can find all videos at");
-        //     },
-        //   ),
-        // ),
       ),
       body: Container(
         child: VideoController(

@@ -29,7 +29,7 @@ class _facebookDownloaderState extends State<facebookDownloader> {
       var url = fieldController.text.toString();
 
       if (url.startsWith("https://www.facebook.com/") ||
-          url.startsWith("https://fb.watch.com/")){
+          url.startsWith("https://fb.watch/")){
         // SHOW DOWNLOAD PROGRESS
         showDialog(
           context: context,
@@ -42,9 +42,12 @@ class _facebookDownloaderState extends State<facebookDownloader> {
         // Await the http get response, then decode the json-formatted response.
         _fbProfile = await FacebookData.postFromUrl('${url}');
         finalLink = _fbProfile.postData.videoHdUrl;
-        // print(_fbProfile.postData.videoHdUrl);
-        downloadFile("$finalLink");
-
+        if(finalLink == null){
+          final snackBar = SnackBar(content: Text('Invalid Link'));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }else{
+          downloadFile("$finalLink");
+        }
       } else {
         // INVALID LINK
         final snackBar = SnackBar(content: Text('Invalid Link'));
